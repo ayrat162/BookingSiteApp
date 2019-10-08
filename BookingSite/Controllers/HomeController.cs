@@ -17,7 +17,7 @@ namespace BookingSite.Controllers
         public IActionResult Index()
         {
             var list = _repository.List<HotelModel>();
-            return View();
+            return View(list);
         }
 
         public IActionResult Privacy()

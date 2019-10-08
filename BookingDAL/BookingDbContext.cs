@@ -9,5 +9,6 @@ namespace BookingDAL
             : base(options) { }
 
         public DbSet<HotelModel> Hotels { get; set; }
+        public DbSet<HotelDetailsModel> Details { get; set; }
     }
 }

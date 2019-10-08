@@ -1,8 +1,34 @@
-﻿@{
+﻿@using BookingShared.Models;
+@model List<HotelModel>
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+<div>
+    <table>
+        <thead>
+            <tr>
+                <td>
+                    Name
+                </td>
+                <td>
+                    Address
+                </td>
+            </tr>
+        </thead>
+        @foreach (HotelModel hotel in Model)
+        {
+            <tr>
+                <td>
+                    @hotel.Name
+                </td>
+                <td>
+                    @hotel.Address
+                </td>
+            </tr>
+        }
+    </table>
 </div>
