@@ -1,4 +1,6 @@
+using BookingBLL;
 using BookingDAL;
+using BookingShared.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +23,7 @@ namespace BookingSite
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddTransient<IRepository, EfRepository>();
             services.AddTransient<DbContext, BookingDbContext>();
             services.AddDbContext<BookingDbContext>(options =>
                 options.UseSqlite("Data Source=database.sqlite"));

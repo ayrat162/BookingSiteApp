@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BookingShared.Models
+﻿namespace BookingShared.Models
 {
     public abstract class BaseEntity
     {

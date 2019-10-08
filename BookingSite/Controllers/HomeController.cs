@@ -1,28 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using BookingSite.Models;
-using BookingDAL;
-using Microsoft.EntityFrameworkCore;
+﻿using BookingShared.Interfaces;
 using BookingShared.Models;
+using BookingSite.Models;
+using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 namespace BookingSite.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly DbContext _dbContext;
-        public HomeController(BookingDbContext dbContext)
+        private readonly IRepository _repository;
+        public HomeController(IRepository repository)
         {
-            _dbContext = dbContext;
+            _repository = repository;
         }
 
         public IActionResult Index()
         {
-            var list = _dbContext.Set<HotelModel>().ToList();
+            var list = _repository.List<HotelModel>();
             return View();
         }
 
