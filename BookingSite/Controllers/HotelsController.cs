@@ -16,10 +16,23 @@ namespace BookingSite.Controllers
             _repository = repository;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             var list = _repository.List<HotelModel>();
             return View(list);
+        }
+
+        public async Task<IActionResult> Hotel(int id)
+        {
+            var hotel = _repository.GetById<HotelModel>(id);
+            if(hotel!=null)
+            {
+                return View(hotel);
+            }
+            else
+            {
+                return new NotFoundResult();
+            }
         }
     }
 }

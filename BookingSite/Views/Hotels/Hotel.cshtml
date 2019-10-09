@@ -1,0 +1,11 @@
+﻿@model BookingShared.Models.HotelModel
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<h1>@Model.Name - @Model.Stars stars</h1>
+@Html.LabelFor(m => m.DescriptionShort)
+@Html.LabelFor(m => m.City)
+@Html.LabelFor(m => m.Address)
+<div></div>
+

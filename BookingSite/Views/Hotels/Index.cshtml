@@ -23,7 +23,9 @@
         {
             <tr>
                 <td>
-                    @hotel.Name
+                    <a asp-controller="Hotels" asp-action="Hotel" asp-route-id="@hotel.Id">
+                        @hotel.Name
+                    </a>
                 </td>
                 <td>
                     @hotel.Address
