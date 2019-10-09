@@ -1,0 +1,34 @@
+﻿@using BookingShared.Models;
+@model List<HotelModel>
+@{
+    ViewData["Title"] = "Hotels";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Hotels</h1>
+</div>
+<div>
+    <table class="table table-striped table-hover thead-light">
+        <thead>
+            <tr>
+                <td>
+                    Name
+                </td>
+                <td>
+                    Address
+                </td>
+            </tr>
+        </thead>
+        @foreach (HotelModel hotel in Model)
+        {
+            <tr>
+                <td>
+                    @hotel.Name
+                </td>
+                <td>
+                    @hotel.Address
+                </td>
+            </tr>
+        }
+    </table>
+</div>
