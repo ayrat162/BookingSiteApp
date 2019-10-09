@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BookingShared.Interfaces;
 using BookingShared.Models;
+using BookingShared.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookingSite.Controllers
@@ -16,18 +17,24 @@ namespace BookingSite.Controllers
             _repository = repository;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             var list = _repository.List<HotelModel>();
             return View(list);
         }
 
-        public async Task<IActionResult> Hotel(int id)
+        public IActionResult Hotel(int id)
         {
             var hotel = _repository.GetById<HotelModel>(id);
             if(hotel!=null)
             {
-                return View(hotel);
+                var rooms = _repository.List<RoomModel>().Where(r => r.HotelModelId == id).ToList();
+                var hotelWithRoomsViewModel = new HotelWithRoomsViewModel()
+                {
+                    Hotel = hotel,
+                    Rooms = rooms
+                };
+                return View(hotelWithRoomsViewModel);
             }
             else
             {

@@ -1,11 +1,16 @@
-﻿@model BookingShared.Models.HotelModel
+﻿@model BookingShared.ViewModels.HotelWithRoomsViewModel
 @{
-    ViewData["Title"] = Model.Name;
+    ViewData["Title"] = Model.Hotel.Name;
 }
 
-<h1>@Model.Name - @Model.Stars stars</h1>
-@Html.LabelFor(m => m.DescriptionShort)
-@Html.LabelFor(m => m.City)
-@Html.LabelFor(m => m.Address)
-<div></div>
-
+<h1>@Model.Hotel.Name - @Model.Hotel.Stars stars</h1>
+@Html.LabelFor(m => m.Hotel.DescriptionShort)
+@Html.LabelFor(m => m.Hotel.City)
+@Html.LabelFor(m => m.Hotel.Address)
+<h2>Rooms</h2>
+@foreach(var room in Model.Rooms)
+{
+    <h3>Room #@room.RoomNumber</h3>
+    <p>Description: @room.Description</p>
+    <p>Price: @room.Price</p>
+}
