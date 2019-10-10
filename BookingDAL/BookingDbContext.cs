@@ -1,15 +1,17 @@
 ﻿using BookingShared.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookingDAL
-{
-    public class BookingDbContext : DbContext
+{ 
+    public class BookingDbContext : IdentityDbContext <AppUser, AppRole, int>
     {
         public BookingDbContext(DbContextOptions<BookingDbContext> options)
             : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<HotelDetailsModel>()
                 .HasIndex(e => e.HotelModelId).IsUnique(true);
             modelBuilder.Entity<RoomModel>()

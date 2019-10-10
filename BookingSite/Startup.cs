@@ -1,6 +1,7 @@
 using BookingBLL;
 using BookingDAL;
 using BookingShared.Interfaces;
+using BookingShared.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -22,6 +23,9 @@ namespace BookingSite
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddIdentity<AppUser, AppRole>(options =>
+             {options.User.RequireUniqueEmail = true;})
+                .AddEntityFrameworkStores<BookingDbContext>();
             services.AddControllersWithViews();
             services.AddTransient<IRepository, EfRepository>();
             services.AddTransient<DbContext, BookingDbContext>();
@@ -48,7 +52,7 @@ namespace BookingSite
             app.UseRouting();
 
             app.UseAuthorization();
-
+            app.UseAuthentication();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
