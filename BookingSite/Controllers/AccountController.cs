@@ -24,20 +24,23 @@ namespace BookingSite.Controllers
                 ViewBag.Message = "User is already registered";
 
                 var user = await UserMgr.FindByNameAsync("ayrat162");
-                if (user == null)
+                if (user != null)
                 {
-                    user = new AppUser
-                    {
-                        UserName = "ayrat162",
-                        Email = "musinayrat@gmail.com",
-                        FirstName = "Ayrat",
-                        LastName = "Musin",
-                        SecurityStamp = new Random().NextDouble().ToString()
-                    };
-                    var result = await UserMgr.CreateAsync(user, "Musichka!123");
-
-                    ViewBag.Message = "User was created";
+                    await UserMgr.DeleteAsync(user);
                 }
+
+                user = new AppUser
+                {
+                    UserName = "ayrat162",
+                    Email = "musinayrat@gmail.com",
+                    FirstName = "Ayrat",
+                    LastName = "Musin",
+                    SecurityStamp = new Random().NextDouble().ToString()
+                };
+                var result = await UserMgr.CreateAsync(user, "Musichka!123");
+
+                ViewBag.Message = "User was created";
+
             }
             catch (Exception ex)
             {
