@@ -16,6 +16,7 @@ namespace BookingShared.ViewModels
         [Display(Name = "Password")]
         public string Password { get; set; }
 
+        [Required]
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
 

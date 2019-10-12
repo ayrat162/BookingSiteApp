@@ -11,6 +11,9 @@ namespace BookingSite.Controllers
 {
     public class AccountController : Controller
     {
+        [TempData]
+        public string Message { get; set; }
+
         public UserManager<AppUser> UserMgr { get; set; }
         public SignInManager<AppUser> SignInMgr { get; set; }
         public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
@@ -54,20 +57,46 @@ namespace BookingSite.Controllers
         [HttpGet]
         public async Task<IActionResult> Login()
         {
-
-
-            //try
-            //{
-            //    var result = await SignInMgr.PasswordSignInAsync("ayrat162", "Musichka!123", false, false);
-            //    ViewBag.Message = $"Result is {result.ToString()}";
-            //    return View();
-            //}
-            //catch (Exception ex)
-            //{
-            //    ViewBag.Message = ex.Message;
-            //}
-
-            return View(new LoginViewModel());
+            return View(new LoginViewModel { ReturnUrl = ""});
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginViewModel loginViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var result = await SignInMgr.PasswordSignInAsync(loginViewModel.Username, loginViewModel.Password, loginViewModel.RememberMe, false);
+                    if (result.Succeeded)
+                    {
+                        Message = "You have successfully logged in";
+                        return RedirectToAction("Index", "Hotels");
+                    }
+                    else if(result.IsLockedOut)
+                    {
+                        Message = "Your account is locked";
+                        return View();
+                    }
+                    else
+                    {
+                        Message = "Login failed. Please try another username or password";
+                        return View();
+                    }
+                }
+                catch(Exception ex)
+                {
+                    Message = "There was an error while logging in";
+                    return View();
+                }
+            }
+            else
+            {
+                TempData["Message"] = "There were some errors while logging in. Please try again";
+                return View("Login", loginViewModel);
+            }
+        }
+
+
     }
 }
