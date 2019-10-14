@@ -21,7 +21,8 @@
                         <li>
                             @if (User.Identity.IsAuthenticated)
                             {
-                                @User.Identity.Name@:, <a class="btn btn-link" asp-controller="Account" asp-action="Logout">Logout</a>
+                                @User.Identity.Name 
+                                <a class="btn btn-danger" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
                             }
                             else
                             {
@@ -44,6 +45,10 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
+            @if (TempData["Message"] != null)
+            {
+                <div class="text-warning">Message: @TempData["Message"]</div>
+            }
             @RenderBody()
         </main>
     </div>

@@ -1,0 +1,14 @@
+﻿@{
+    ViewData["Title"] = "Account Page";
+}
+
+@if (User.Identity.IsAuthenticated)
+{
+    <div class="text-info">Welcome, @User.Identity.Name</div>
+    <a asp-action="Logout"asp-controller="Account" >Logout</a>
+}
+else
+{
+    <a asp-action="Login">Login</a>
+    <a asp-action="Register">Register</a>
+}

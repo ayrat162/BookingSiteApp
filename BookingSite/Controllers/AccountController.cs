@@ -21,36 +21,53 @@ namespace BookingSite.Controllers
             UserMgr = userManager;
             SignInMgr = signInManager;
         }
-        public async Task<IActionResult> Register()
+
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterViewModel registerViewModel)
+        {
+            //try
+            //{
+            //    ViewBag.Message = "User is already registered";
+
+            //    var user = await UserMgr.FindByNameAsync("ayrat162");
+            //    if (user != null)
+            //    {
+            //        await UserMgr.DeleteAsync(user);
+            //    }
+
+            //    user = new AppUser
+            //    {
+            //        UserName = "ayrat162",
+            //        Email = "musinayrat@gmail.com",
+            //        FirstName = "Ayrat",
+            //        LastName = "Musin",
+            //        SecurityStamp = new Random().NextDouble().ToString()
+            //    };
+            //    var result = await UserMgr.CreateAsync(user, "Musichka!123");
+
+            //    ViewBag.Message = "User was created";
+
+            //}
+            //catch (Exception ex)
+            //{
+            //    ViewBag.Message = ex.Message;
+            //}
+
+            return View();
+        }
+
+        public async Task<IActionResult> Logout()
         {
             try
             {
-                ViewBag.Message = "User is already registered";
-
-                var user = await UserMgr.FindByNameAsync("ayrat162");
-                if (user != null)
-                {
-                    await UserMgr.DeleteAsync(user);
-                }
-
-                user = new AppUser
-                {
-                    UserName = "ayrat162",
-                    Email = "musinayrat@gmail.com",
-                    FirstName = "Ayrat",
-                    LastName = "Musin",
-                    SecurityStamp = new Random().NextDouble().ToString()
-                };
-                var result = await UserMgr.CreateAsync(user, "Musichka!123");
-
-                ViewBag.Message = "User was created";
-
+                await SignInMgr.SignOutAsync();
             }
-            catch (Exception ex)
-            {
-                ViewBag.Message = ex.Message;
-            }
+            catch { }
+            return View("Index", "Home");
+        }
 
+        public async Task<IActionResult> Index()
+        {
             return View();
         }
 
@@ -96,7 +113,5 @@ namespace BookingSite.Controllers
                 return View("Login", loginViewModel);
             }
         }
-
-
     }
 }
