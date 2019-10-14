@@ -46,5 +46,13 @@ namespace BookingShared.ViewModels
         
         [Display(Name = "PassportNumber")]
         public string PassportNumber { get; set; }
+
+        public RegisterViewModel()
+        {
+            DateOfBirth = new DateTime(1970, 1, 1);
+            MobileNumber = "+1234567890";
+            PassportNumber = "1234 567890";
+            Nationality = "Germany";
+        }
     }
 }

@@ -22,38 +22,41 @@ namespace BookingSite.Controllers
             SignInMgr = signInManager;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Register()
+        {
+            return View(new RegisterViewModel());
+        }
+
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel registerViewModel)
         {
-            //try
-            //{
-            //    ViewBag.Message = "User is already registered";
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var user = await UserMgr.FindByNameAsync(registerViewModel.Username);
+                    if (user != null)
+                    {
+                        Message = "The user already exists. Please choose another username.";
+                        return View(registerViewModel);
+                    }
+                    else
+                    {
+                        user = new AppUser(registerViewModel);
 
-            //    var user = await UserMgr.FindByNameAsync("ayrat162");
-            //    if (user != null)
-            //    {
-            //        await UserMgr.DeleteAsync(user);
-            //    }
+                        var result = await UserMgr.CreateAsync(user, registerViewModel.Password);
 
-            //    user = new AppUser
-            //    {
-            //        UserName = "ayrat162",
-            //        Email = "musinayrat@gmail.com",
-            //        FirstName = "Ayrat",
-            //        LastName = "Musin",
-            //        SecurityStamp = new Random().NextDouble().ToString()
-            //    };
-            //    var result = await UserMgr.CreateAsync(user, "Musichka!123");
-
-            //    ViewBag.Message = "User was created";
-
-            //}
-            //catch (Exception ex)
-            //{
-            //    ViewBag.Message = ex.Message;
-            //}
-
-            return View();
+                        if (result.Succeeded)
+                        {
+                            return View("Index", "Account");
+                        }
+                    }
+                }
+                catch { }
+            }
+            Message = "There was some error. Please try again.";
+            return View(registerViewModel);
         }
 
         public async Task<IActionResult> Logout()

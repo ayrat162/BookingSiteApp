@@ -3,49 +3,59 @@
     ViewData["Title"] = "Register";
 }
 
-<h1>Login</h1>
+<h3>Register</h3>
 
 <div class="form-horizontal">
     <div asp-validation-summary="All" class="text-danger"></div>
 
     <form method="post" asp-controller="Account" asp-action="Register">
         <div class="form-group col-md-3">
-            <label asp-for="Email" class="control-label col-md-2"></label><br />
+            <label asp-for="Email" class="control-label"></label><br />
             <input asp-for="Email" class="form-control" />
             <span asp-validation-for="Email" class="text-danger"></span>
         </div>
         <div class="form-group col-md-3">
-            <label asp-for="Username" class="control-label col-md-2"></label><br />
+            <label asp-for="Username" class="control-label"></label><br />
             <input asp-for="Username" class="form-control" />
             <span asp-validation-for="Username" class="text-danger"></span>
         </div>
         <div class="form-group col-md-3">
-            <label asp-for="Password" class="control-label col-md-2"></label><br />
+            <label asp-for="FirstName" class="control-label"></label><br />
+            <input asp-for="FirstName" class="form-control" />
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-3">
+            <label asp-for="LastName" class="control-label"></label><br />
+            <input asp-for="LastName" class="form-control" />
+            <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-3">
+            <label asp-for="Password" class="control-label"></label><br />
             <input asp-for="Password" class="form-control" />
             <span asp-validation-for="Password" class="text-danger"></span>
         </div>
-        <div class="form-group col-md-3" hidden="hidden">
-            <label asp-for="ConfirmPassword" class="control-label col-md-2"></label><br />
+        <div class="form-group col-md-3">
+            <label asp-for="ConfirmPassword" class="control-label"></label><br />
             <input asp-for="ConfirmPassword" class="form-control" />
             <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
         </div>
-        <div class="form-group col-md-3" hidden="hidden">
-            <label asp-for="Nationality" class="control-label col-md-2"></label><br />
+        <div class="form-group col-md-3">
+            <label asp-for="Nationality" class="control-label"></label><br />
             <input asp-for="Nationality" class="form-control" />
             <span asp-validation-for="Nationality" class="text-danger"></span>
         </div>
-        <div class="form-group col-md-3" hidden="hidden">
-            <label asp-for="DateOfBirth" class="control-label col-md-2"></label><br />
+        <div class="form-group col-md-3">
+            <label asp-for="DateOfBirth" class="control-label"></label><br />
             <input asp-for="DateOfBirth" class="form-control" />
             <span asp-validation-for="DateOfBirth" class="text-danger"></span>
         </div>
-        <div class="form-group col-md-3" hidden="hidden">
-            <label asp-for="MobileNumber" class="control-label col-md-2"></label><br />
+        <div class="form-group col-md-3">
+            <label asp-for="MobileNumber" class="control-label"></label><br />
             <input asp-for="MobileNumber" class="form-control" />
             <span asp-validation-for="MobileNumber" class="text-danger"></span>
         </div>
-        <div class="form-group col-md-3" hidden="hidden">
-            <label asp-for="PassportNumber" class="control-label col-md-2"></label><br />
+        <div class="form-group col-md-3">
+            <label asp-for="PassportNumber" class="control-label"></label><br />
             <input asp-for="PassportNumber" class="form-control" />
             <span asp-validation-for="PassportNumber" class="text-danger"></span>
         </div>

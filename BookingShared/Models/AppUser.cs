@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using BookingShared.ViewModels;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -27,5 +28,26 @@ namespace BookingShared.Models
 
         [Display(Name = "PassportNumber")]
         public string PassportNumber { get; set; }
+
+
+        public AppUser(RegisterViewModel registerViewModel)
+        {
+            if (registerViewModel != null)
+            {
+                UserName = registerViewModel.Username;
+                FirstName = registerViewModel.FirstName;
+                LastName = registerViewModel.LastName;
+                Nationality = registerViewModel.Nationality;
+                DateOfBirth = registerViewModel.DateOfBirth;
+                MobileNumber = registerViewModel.MobileNumber;
+                PassportNumber = registerViewModel.PassportNumber;
+                Email = registerViewModel.Email;
+            }
+        }
+
+        public AppUser()
+        {
+
+        }
     }
 }

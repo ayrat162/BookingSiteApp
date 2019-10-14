@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookingDAL.Migrations
 {
     [DbContext(typeof(BookingDbContext))]
-    [Migration("20191010183424_CreateIdentitySchema")]
-    partial class CreateIdentitySchema
+    [Migration("20191014180711_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -58,6 +58,9 @@ namespace BookingDAL.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("TEXT");
 
+                    b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Email")
                         .HasColumnType("TEXT")
                         .HasMaxLength(256);
@@ -66,15 +69,23 @@ namespace BookingDAL.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("FirstName")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("LastName")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("MobileNumber")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Nationality")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("NormalizedEmail")
@@ -84,6 +95,9 @@ namespace BookingDAL.Migrations
                     b.Property<string>("NormalizedUserName")
                         .HasColumnType("TEXT")
                         .HasMaxLength(256);
+
+                    b.Property<string>("PassportNumber")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("TEXT");
@@ -114,6 +128,31 @@ namespace BookingDAL.Migrations
                         .HasName("UserNameIndex");
 
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("BookingShared.Models.BookingModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("BeginDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsApproved")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("RoomModelId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoomModelId");
+
+                    b.ToTable("Bookings");
                 });
 
             modelBuilder.Entity("BookingShared.Models.HotelDetailsModel", b =>
@@ -291,6 +330,15 @@ namespace BookingDAL.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("BookingShared.Models.BookingModel", b =>
+                {
+                    b.HasOne("BookingShared.Models.RoomModel", "RoomModel")
+                        .WithMany()
+                        .HasForeignKey("RoomModelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("BookingShared.Models.HotelDetailsModel", b =>
