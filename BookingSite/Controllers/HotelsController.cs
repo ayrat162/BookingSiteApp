@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BookingBLL.Helpers;
 using BookingShared.Interfaces;
 using BookingShared.Models;
 using BookingShared.ViewModels;
@@ -17,13 +18,13 @@ namespace BookingSite.Controllers
             _repository = repository;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             var list = _repository.List<HotelModel>();
             return View(list);
         }
 
-        public IActionResult Hotel(int id)
+        public async Task<IActionResult> Hotel(int id)
         {
             var hotel = _repository.GetById<HotelModel>(id);
             if(hotel!=null)
@@ -40,6 +41,12 @@ namespace BookingSite.Controllers
             {
                 return new NotFoundResult();
             }
+        }
+
+        public async Task<IActionResult> Populate()
+        {
+            PopulateHelper.PopulateHotels(_repository);
+            return View();
         }
     }
 }
