@@ -5,32 +5,47 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Hotels</h1>
+    <h2 class="display-4">Hotels</h2>
 </div>
-<div>
-    <table class="table table-striped table-hover thead-light">
-        <thead>
-            <tr>
-                <td>
-                    Name
-                </td>
-                <td>
-                    Address
-                </td>
-            </tr>
-        </thead>
-        @foreach (HotelModel hotel in Model)
-        {
-            <tr>
-                <td>
-                    <a asp-controller="Hotels" asp-action="Hotel" asp-route-id="@hotel.Id">
-                        @hotel.Name
-                    </a>
-                </td>
-                <td>
-                    @hotel.Address
-                </td>
-            </tr>
-        }
-    </table>
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-10 mx-auto">
+            <!-- List group-->
+            <ul class="list-group shadow">
+                @foreach (HotelModel hotel in Model)
+                {
+                    <!-- list group item-->
+                    <li class="list-group-item">
+                        <!-- Custom content-->
+                        <div class="media align-items-lg-center flex-column flex-lg-row p-">
+                            <div class="media-body order-2 order-lg-1">
+                                <h5 class="mt-0 font-weight-bold mb-2">
+                                    <a class="link-unstyled" asp-action="Hotel" asp-route-id="@hotel.Id">@hotel.Name</a>
+                                </h5>
+                                <p class="font-italic text-muted mb-0 small">@hotel.DescriptionShort</p>
+                                <p class="font-italic text-muted mb-0 small">Address: @hotel.City @hotel.Address</p>
+                                <div class="d-flex align-items-center justify-content-between mt-1">
+                                    <h6 class="font-weight-bold my-2">$120.00</h6>
+                                    <ul class="list-inline small">
+                                        @for (int i = 1; i <= 5; i++)
+                                        {
+                                            @if (i < hotel.Stars)
+                    {
+                        <li class="list-inline-item m-0"><i class="fa fa-star text-warning"></i></li>
+                    }
+                    else
+                    {
+                        <li class="list-inline-item m-0"><i class="fa fa-star-o text-gray"></i></li>
+                    }
+                                        }
+                                    </ul>
+                                </div>
+                            </div><img src="~/img/riviera.jpg" alt="Generic placeholder image" width="200" class="ml-lg-5 order-1 order-lg-2 img-thumbnail">
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
 </div>
