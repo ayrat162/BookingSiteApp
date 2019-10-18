@@ -7,7 +7,9 @@ namespace BookingShared.ViewModels
 {
     public class HotelWithRoomsViewModel
     {
-        public List<RoomModel> Rooms { get; set; }
         public HotelModel Hotel { get; set; }
+        public HotelDetailsModel HotelDetails { get; set; }
+        public List<RoomModel> Rooms { get; set; }
+
     }
 }

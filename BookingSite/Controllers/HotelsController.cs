@@ -30,10 +30,12 @@ namespace BookingSite.Controllers
             if(hotel!=null)
             {
                 var rooms = _repository.List<RoomModel>().Where(r => r.HotelModelId == id).ToList();
+                var hotelDetails = _repository.List<HotelDetailsModel>().Where(r => r.HotelModelId == id).FirstOrDefault();
                 var hotelWithRoomsViewModel = new HotelWithRoomsViewModel()
                 {
                     Hotel = hotel,
-                    Rooms = rooms
+                    Rooms = rooms,
+                    HotelDetails = hotelDetails
                 };
                 return View(hotelWithRoomsViewModel);
             }

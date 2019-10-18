@@ -3,14 +3,68 @@
     ViewData["Title"] = Model.Hotel.Name;
 }
 
-<h1>@Model.Hotel.Name - @Model.Hotel.Stars stars</h1>
-@Html.LabelFor(m => m.Hotel.DescriptionShort)
-@Html.LabelFor(m => m.Hotel.City)
-@Html.LabelFor(m => m.Hotel.Address)
-<h2>Rooms</h2>
-@foreach(var room in Model.Rooms)
-{
-    <h3>Room #@room.RoomNumber</h3>
-    <p>Description: @room.Description</p>
-    <p>Price: @room.Price</p>
-}
+<div class="text-center">
+    <h2 class="display-4">Hotels</h2>
+</div>
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-11 mx-auto">
+            <div class="row rounded border shadow p-3">
+                <div class="col col-8">
+                    <div class="d-flex justify-content-between mt-1">
+                        <h3 class="mt-0 font-weight-bold mb-2">@Model.Hotel.Name</h3>
+                        <div class="small" id="stars">
+                            @for (int i = 1; i <= 5; i++)
+                            {
+                                @if (i < Model.Hotel.Stars)
+                                {
+                                    <i class="fa fa-star text-warning"></i>
+                                }
+                                else
+                                {
+                                    <i class="fa fa-star-o text-gray"></i>
+                                }
+                            }
+                        </div>
+                    </div>
+                    <p class="font-italic text-muted mb-0">
+                        @if (Model.HotelDetails != null)
+                        {
+                            @Model.HotelDetails.FullDescription
+                        }
+                        else
+                        {
+                            @Model.Hotel.DescriptionShort
+                        }
+                    </p>
+                    <br />
+                    <p class="font-italic text-muted mb-0" id="hotelAddress">Address: @Model.Hotel.City @Model.Hotel.Address</p>
+                </div>
+                <div class="col col-4">
+                    <img src="~/img/riviera.jpg" alt="" class="img-thumbnail">
+                </div>
+                <div class="row p-2" id="roomsList">
+                    <div class="col col-12">
+                        <hr />
+                        <h5>Available Rooms</h5>
+                    </div>
+                    @for (int i = 0; i < 10; i++)
+                    {
+                        <div class="col-md-3">
+                            <div class="card m-0 mt-3 p-1">
+                                <div class="card-title text-center small">
+                                    <strong>Room @i</strong>
+                                </div>
+                                <img class="card-img mb-sm-2" src="/img/room.jpg" />
+                                <div class="card-text small text-center">
+                                    The room with refrigerator, air conditioner, shower and WC.
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
