@@ -8,8 +8,11 @@ namespace BookingShared.Models
     {
         public RoomModel RoomModel { get; set; }
         public int RoomModelId { get; set; }
+        public AppUser User { get; set; }
+        public int UserId { get; set; }
         public bool IsApproved { get; set; }
         public DateTime BeginDate { get; set; }
         public DateTime EndDate { get; set; }
+
     }
 }

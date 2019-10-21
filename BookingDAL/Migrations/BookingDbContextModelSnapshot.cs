@@ -146,9 +146,14 @@ namespace BookingDAL.Migrations
                     b.Property<int>("RoomModelId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
 
                     b.HasIndex("RoomModelId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Bookings");
                 });
@@ -335,6 +340,12 @@ namespace BookingDAL.Migrations
                     b.HasOne("BookingShared.Models.RoomModel", "RoomModel")
                         .WithMany()
                         .HasForeignKey("RoomModelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BookingShared.Models.AppUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

@@ -1,9 +1,18 @@
-﻿@using BookingShared.Models;
-@model List<HotelModel>
+﻿@model bool
 @{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
+</div>
+<div class="text-center">
+    @if (Model)
+    {
+        <a class="btn btn-danger" asp-action="Populate">Populate</a>
+    }
+    else
+    {
+        <a class="btn btn-danger disabled" href="#">Already populated</a>
+    }
 </div>

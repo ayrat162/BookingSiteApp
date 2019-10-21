@@ -228,6 +228,7 @@ namespace BookingDAL.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     RoomModelId = table.Column<int>(nullable: false),
+                    UserId = table.Column<int>(nullable: false),
                     IsApproved = table.Column<bool>(nullable: false),
                     BeginDate = table.Column<DateTime>(nullable: false),
                     EndDate = table.Column<DateTime>(nullable: false)
@@ -239,6 +240,12 @@ namespace BookingDAL.Migrations
                         name: "FK_Bookings_Rooms_RoomModelId",
                         column: x => x.RoomModelId,
                         principalTable: "Rooms",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Bookings_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -286,6 +293,11 @@ namespace BookingDAL.Migrations
                 column: "RoomModelId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Bookings_UserId",
+                table: "Bookings",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Details_HotelModelId",
                 table: "Details",
                 column: "HotelModelId",
@@ -325,10 +337,10 @@ namespace BookingDAL.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "Rooms");
 
             migrationBuilder.DropTable(
-                name: "Rooms");
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "Hotels");

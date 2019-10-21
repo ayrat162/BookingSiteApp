@@ -1,8 +1,10 @@
-﻿using BookingShared.Interfaces;
+﻿using BookingBLL.Helpers;
+using BookingShared.Interfaces;
 using BookingShared.Models;
 using BookingSite.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace BookingSite.Controllers
 {
@@ -15,9 +17,16 @@ namespace BookingSite.Controllers
         }
 
         public IActionResult Index()
+        {   
+            var hotelsCount = _repository.List<HotelModel>().Count;
+            var showPopulateButton = (hotelsCount == 0);
+            return View(showPopulateButton);
+        }
+
+        public async Task<IActionResult> Populate()
         {
-            var list = _repository.List<HotelModel>();
-            return View(list);
+            PopulateHelper.PopulateHotels(_repository);
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

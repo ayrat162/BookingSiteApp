@@ -45,10 +45,6 @@ namespace BookingSite.Controllers
             }
         }
 
-        public async Task<IActionResult> Populate()
-        {
-            PopulateHelper.PopulateHotels(_repository);
-            return View();
-        }
+        
     }
 }
