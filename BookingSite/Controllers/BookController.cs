@@ -36,7 +36,7 @@ namespace BookingSite.Controllers
             //}
             //else
             //{
-            return new NotFoundResult();
+            return View();
             //}
         }
     }

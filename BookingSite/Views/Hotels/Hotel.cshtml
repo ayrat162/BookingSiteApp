@@ -1,10 +1,20 @@
-﻿@model BookingShared.ViewModels.HotelWithRoomsViewModel
+﻿@using BookingShared.ViewModels
+@model BookingShared.ViewModels.HotelWithRoomsViewModel
 @{
     ViewData["Title"] = Model.Hotel.Name;
 }
 
 <div class="text-center">
     <h2 class="display-4">Hotels</h2>
+</div>
+
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <partial name="_BookingForm.cshtml" model="new RoomBookingViewModel() { BeginDate = DateTime.Today, EndDate = DateTime.Today.AddDays(1) }">
+        </div>
+    </div>
+</div>
 </div>
 
 <div class="container py-5">
@@ -60,9 +70,12 @@
                                 <div class="card-text small text-center">
                                     The room with refrigerator, air conditioner, shower and WC.
                                 </div>
-                                <div class="text-center mt-1 mb-1">
-                                    <a class="btn btn-secondary btn-sm btn-hover">Book it for $46</a>
-                                </div>
+                                <button type="button" class="btn" data-toggle="modal" data-target="#myModal">
+                                    Book this Room
+                                </button>
+                                @*<div class="text-center mt-1 mb-1">
+                                        <a class="btn btn-secondary btn-sm btn-hover">Book it for $46</a>
+                                    </div>*@
                             </div>
                         </div>
                     }

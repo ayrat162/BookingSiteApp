@@ -1,0 +1,22 @@
+﻿@model BookingShared.ViewModels.RoomBookingViewModel;
+
+<form method="post" asp-controller="Book" asp-action="Room" class="m-3">
+    <div class="form-group col">
+        <label asp-for="RoomId" class="control-label"></label><br />
+        <input asp-for="RoomId" class="form-control" />
+        <span asp-validation-for="RoomId" class="text-danger"></span>
+    </div>
+    <div class="form-group col">
+        <label asp-for="BeginDate" class="control-label"></label><br />
+        <input asp-for="BeginDate" class="form-control" />
+        <span asp-validation-for="BeginDate" class="text-danger"></span>
+    </div>
+    <div class="form-group col">
+        <label asp-for="EndDate" class="control-label"></label><br />
+        <input asp-for="EndDate" class="form-control" />
+        <span asp-validation-for="EndDate" class="text-danger"></span>
+    </div>
+    <div class="form-check col">
+        <input type="submit" value="Book this Room" class="btn btn-info" />
+    </div>
+</form>
