@@ -11,10 +11,9 @@
 <div class="modal fade" id="myModal">
     <div class="modal-dialog">
         <div class="modal-content">
-            <partial name="_BookingForm.cshtml" model="new RoomBookingViewModel() { BeginDate = DateTime.Today, EndDate = DateTime.Today.AddDays(1) }">
+            <partial name="_BookingForm.cshtml" model="new RoomBookingViewModel() { BeginDate = DateTime.Today, EndDate = DateTime.Today.AddDays(1), Rooms = Model.Rooms.ToList() }">
         </div>
     </div>
-</div>
 </div>
 
 <div class="container py-5">
@@ -59,7 +58,8 @@
                         <hr />
                         <h5>Available Rooms</h5>
                     </div>
-                    @for (int i = 1; i <= 10; i++)
+                    @* TODO: Replace with real rooms *@
+                    @for (int i = 1; i <= 10; i++) 
                     {
                         <div class="col-md-3">
                             <div class="card m-0 mt-3 p-1">

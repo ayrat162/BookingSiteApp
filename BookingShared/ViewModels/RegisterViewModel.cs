@@ -39,9 +39,11 @@ namespace BookingShared.ViewModels
         public string Nationality { get; set; }
 
         [Display(Name = "Date of Birth")]
+        [DataType(DataType.Date)]
         public DateTime DateOfBirth { get; set; }
 
         [Display(Name = "Mobile Number")]
+        [DataType(DataType.PhoneNumber)]
         public string MobileNumber { get; set; }
         
         [Display(Name = "PassportNumber")]
@@ -49,7 +51,7 @@ namespace BookingShared.ViewModels
 
         public RegisterViewModel()
         {
-            DateOfBirth = new DateTime(1970, 1, 1);
+            DateOfBirth = new DateTime(1988, 8, 1);
             MobileNumber = "+1234567890";
             PassportNumber = "1234 567890";
             Nationality = "Germany";

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace BookingShared.Models
@@ -7,11 +8,14 @@ namespace BookingShared.Models
     public class BookingModel : BaseEntity
     {
         public RoomModel RoomModel { get; set; }
+        [Required]
         public int RoomModelId { get; set; }
         public AppUser User { get; set; }
         public int UserId { get; set; }
         public bool IsApproved { get; set; }
+        [Required]
         public DateTime BeginDate { get; set; }
+        [Required]
         public DateTime EndDate { get; set; }
 
     }
