@@ -2,13 +2,32 @@
     ViewData["Title"] = "Account Page";
 }
 
-@if (User.Identity.IsAuthenticated)
+@if (!User.Identity.IsAuthenticated)
 {
-    <div class="text-info">Welcome, @User.Identity.Name</div>
-    <a asp-action="Logout"asp-controller="Account" >Logout</a>
+    <div class="text-center">
+        <a asp-action="Login" class="btn btn-info">Login</a>
+        <a asp-action="Register" class="btn btn-info">Register</a>
+    </div>
 }
 else
 {
-    <a asp-action="Login">Login</a>
-    <a asp-action="Register">Register</a>
+    <div class="row">
+        <div class="col-sm-12 text-center">
+            <div class="text-info h2">
+                Welcome, @User.Identity.Name
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="h3">
+                My Personal Data
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="h3">
+                My bookings
+            </div>
+        </div>
+    </div>
+
+
 }

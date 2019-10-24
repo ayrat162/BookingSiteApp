@@ -59,23 +59,20 @@
                         <h5>Available Rooms</h5>
                     </div>
                     @* TODO: Replace with real rooms *@
-                    @for (int i = 1; i <= 10; i++) 
+                    @foreach (var room in Model.Rooms)
                     {
                         <div class="col-md-3">
                             <div class="card m-0 mt-3 p-1">
                                 <div class="card-title text-center small">
-                                    <strong>Room @i</strong>
+                                    <strong>@room.RoomNumber</strong>
                                 </div>
-                                <img class="card-img mb-sm-2" src="/img/room.jpg" />
+                                <img class="card-img mb-sm-2" src="~/img/room.jpg" />
                                 <div class="card-text small text-center">
-                                    The room with refrigerator, air conditioner, shower and WC.
+                                    @room.Description
                                 </div>
                                 <button type="button" class="btn" data-toggle="modal" data-target="#myModal">
-                                    Book this Room
+                                    Book it $@room.Price
                                 </button>
-                                @*<div class="text-center mt-1 mb-1">
-                                        <a class="btn btn-secondary btn-sm btn-hover">Book it for $46</a>
-                                    </div>*@
                             </div>
                         </div>
                     }

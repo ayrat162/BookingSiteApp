@@ -22,7 +22,9 @@
                         <li>
                             @if (User.Identity.IsAuthenticated)
                             {
-                                @User.Identity.Name @:
+                            <a asp-action="Index" asp-controller="Account">
+                                @User.Identity.Name
+                            </a>
                                 <a class="btn-link btn-link" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
                             }
                             else
