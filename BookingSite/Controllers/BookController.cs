@@ -1,6 +1,8 @@
 ﻿using System.Threading.Tasks;
 using BookingShared.Interfaces;
+using BookingShared.Models;
 using BookingShared.ViewModels;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookingSite.Controllers
@@ -8,8 +10,10 @@ namespace BookingSite.Controllers
     public class BookController : Controller
     {
         private readonly IRepository _repository;
-        public BookController(IRepository repository)
+        private UserManager<AppUser> _userManager;
+        public BookController(IRepository repository, UserManager<AppUser> userManager)
         {
+            _userManager = userManager;
             _repository = repository;
         }
 
@@ -21,23 +25,19 @@ namespace BookingSite.Controllers
         [HttpPost]
         public async Task<IActionResult> Room(RoomBookingViewModel bookingViewModel)
         {
-            //var hotel = _repository.GetById<HotelModel>(id);
-            //if(hotel!=null)
-            //{
-            //    var rooms = _repository.List<RoomModel>().Where(r => r.HotelModelId == id).ToList();
-            //    var hotelDetails = _repository.List<HotelDetailsModel>().Where(r => r.HotelModelId == id).FirstOrDefault();
-            //    var hotelWithRoomsViewModel = new HotelWithRoomsViewModel()
-            //    {
-            //        Hotel = hotel,
-            //        Rooms = rooms,
-            //        HotelDetails = hotelDetails
-            //    };
-            //    return View(hotelWithRoomsViewModel);
-            //}
-            //else
-            //{
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.GetUserAsync(HttpContext.User);
+                var newBooking = new BookingModel
+                {
+                    BeginDate = bookingViewModel.BeginDate,
+                    EndDate = bookingViewModel.EndDate,
+                    RoomModelId = bookingViewModel.RoomId,
+                    UserId = user.Id
+                };
+                _repository.Add(newBooking);
+            }
             return View();
-            //}
         }
     }
 }

@@ -13,13 +13,13 @@ namespace BookingSite.Controllers
     public class AccountController : Controller
     {
         private readonly IRepository _repository;
-        private UserManager<AppUser> _userMgr { get; set; }
+        private UserManager<AppUser> _userManager { get; set; }
         private SignInManager<AppUser> _signInMgr { get; set; }
 
         public AccountController(IRepository repository, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
         {
             _repository = repository;
-            _userMgr = userManager;
+            _userManager = userManager;
             _signInMgr = signInManager;
         }
 
@@ -39,7 +39,7 @@ namespace BookingSite.Controllers
             {
                 try
                 {
-                    var user = await _userMgr.FindByNameAsync(registerViewModel.Username);
+                    var user = await _userManager.FindByNameAsync(registerViewModel.Username);
                     if (user != null)
                     {
                         Message = "The user already exists. Please choose another username.";
@@ -49,7 +49,7 @@ namespace BookingSite.Controllers
                     {
                         user = new AppUser(registerViewModel);
 
-                        var result = await _userMgr.CreateAsync(user, registerViewModel.Password);
+                        var result = await _userManager.CreateAsync(user, registerViewModel.Password);
 
                         if (result.Succeeded)
                         {
@@ -77,13 +77,15 @@ namespace BookingSite.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                var user = await _userMgr.GetUserAsync(HttpContext.User);
+                var user = await _userManager.GetUserAsync(HttpContext.User);
 
                 var accountViewModel = new AccountViewModel()
                 {
                     AppUser = user,
                     Bookings = _repository.ListQuery<BookingModel>(b => b.UserId == user.Id)
                 };
+                // TODO: Enable lazy loading of hotel info
+                return View(accountViewModel);
             }
             return View();
         }
