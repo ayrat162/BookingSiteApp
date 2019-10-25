@@ -1,6 +1,7 @@
 ﻿using BookingShared.Interfaces;
 using BookingShared.Models;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -18,6 +19,10 @@ namespace BookingBLL
         public T GetById<T>(int id) where T : BaseEntity
         {
             return _dbContext.Set<T>().SingleOrDefault(e => e.Id == id);
+        }
+        public List<T> ListQuery<T>(Func<T,bool> f) where T : BaseEntity
+        {
+            return _dbContext.Set<T>().Where(f).ToList();
         }
 
         public List<T> List<T>() where T : BaseEntity

@@ -1,4 +1,5 @@
 ﻿using BookingShared.Models;
+using System;
 using System.Collections.Generic;
 
 namespace BookingShared.Interfaces
@@ -7,6 +8,7 @@ namespace BookingShared.Interfaces
     {
         T GetById<T>(int id) where T : BaseEntity;
         List<T> List<T>() where T : BaseEntity;
+        List<T> ListQuery<T>(Func<T,bool> f) where T : BaseEntity;
         T Add<T>(T entity) where T : BaseEntity;
         void Update<T>(T entity) where T : BaseEntity;
         void Delete<T>(T entity) where T : BaseEntity;

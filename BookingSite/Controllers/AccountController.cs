@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BookingShared.Interfaces;
 using BookingShared.Models;
 using BookingShared.ViewModels;
 using Microsoft.AspNetCore.Identity;
@@ -11,16 +12,19 @@ namespace BookingSite.Controllers
 {
     public class AccountController : Controller
     {
+        private readonly IRepository _repository;
+        private UserManager<AppUser> _userMgr { get; set; }
+        private SignInManager<AppUser> _signInMgr { get; set; }
+
+        public AccountController(IRepository repository, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
+        {
+            _repository = repository;
+            _userMgr = userManager;
+            _signInMgr = signInManager;
+        }
+
         [TempData]
         public string Message { get; set; }
-
-        public UserManager<AppUser> UserMgr { get; set; }
-        public SignInManager<AppUser> SignInMgr { get; set; }
-        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
-        {
-            UserMgr = userManager;
-            SignInMgr = signInManager;
-        }
 
         [HttpGet]
         public async Task<IActionResult> Register()
@@ -35,7 +39,7 @@ namespace BookingSite.Controllers
             {
                 try
                 {
-                    var user = await UserMgr.FindByNameAsync(registerViewModel.Username);
+                    var user = await _userMgr.FindByNameAsync(registerViewModel.Username);
                     if (user != null)
                     {
                         Message = "The user already exists. Please choose another username.";
@@ -45,7 +49,7 @@ namespace BookingSite.Controllers
                     {
                         user = new AppUser(registerViewModel);
 
-                        var result = await UserMgr.CreateAsync(user, registerViewModel.Password);
+                        var result = await _userMgr.CreateAsync(user, registerViewModel.Password);
 
                         if (result.Succeeded)
                         {
@@ -55,7 +59,7 @@ namespace BookingSite.Controllers
                 }
                 catch { }
             }
-            Message = "There was some error. Please try again.";
+            Message = "There was an error. Please try again.";
             return View(registerViewModel);
         }
 
@@ -63,7 +67,7 @@ namespace BookingSite.Controllers
         {
             try
             {
-                await SignInMgr.SignOutAsync();
+                await _signInMgr.SignOutAsync();
             }
             catch { }
             return View("Index", "Home");
@@ -71,6 +75,16 @@ namespace BookingSite.Controllers
 
         public async Task<IActionResult> Index()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                var user = await _userMgr.GetUserAsync(HttpContext.User);
+
+                var accountViewModel = new AccountViewModel()
+                {
+                    AppUser = user,
+                    Bookings = _repository.ListQuery<BookingModel>(b => b.UserId == user.Id)
+                };
+            }
             return View();
         }
 
@@ -87,7 +101,7 @@ namespace BookingSite.Controllers
             {
                 try
                 {
-                    var result = await SignInMgr.PasswordSignInAsync(loginViewModel.Username, loginViewModel.Password, loginViewModel.RememberMe, false);
+                    var result = await _signInMgr.PasswordSignInAsync(loginViewModel.Username, loginViewModel.Password, loginViewModel.RememberMe, false);
                     if (result.Succeeded)
                     {
                         Message = "You have successfully logged in";
