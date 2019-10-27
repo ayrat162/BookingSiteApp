@@ -10,6 +10,8 @@ namespace BookingBLL.Helpers
     {
         public static void PopulateHotels(IRepository repository)
         {
+            // TODO: Make everything random
+
             repository.Add(new HotelModel { Name = "Bulak", Address = "49 Pravo Bulachnaya", City = "Kazan Russia", Stars = 4 });
             repository.Add(new HotelModel { Name = "Hotel Tranzit", Address = "Highway Moscow ufa 812 km", City = "Kazan Russia", Stars = 3 });
             repository.Add(new HotelModel { Name = "Regina Hotel Kazan", Address = "11 50 Let Oktyabrya street", City = "Kazan Russia", Stars = 2 });

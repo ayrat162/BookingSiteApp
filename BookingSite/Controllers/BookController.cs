@@ -17,11 +17,6 @@ namespace BookingSite.Controllers
             _repository = repository;
         }
 
-        public async Task<IActionResult> Index()
-        {
-            return new NotFoundResult();
-        }
-
         [HttpPost]
         public async Task<IActionResult> Room(RoomBookingViewModel bookingViewModel)
         {

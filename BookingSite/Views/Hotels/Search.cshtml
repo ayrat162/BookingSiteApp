@@ -1,0 +1,75 @@
+﻿@model BookingShared.ViewModels.SearchViewModel
+@{
+    ViewData["Title"] = "Search";
+}
+
+<h1>Search</h1>
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-10 mx-auto">
+            <form method="post" asp-controller="Hotels" asp-action="Search">
+                <div class="form-row">
+                    <div class="form-group col-sm-4">
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger small"></span>
+                    </div>
+                    <div class="form-group col-sm-2">
+                        <input asp-for="Stars" class="form-control" />
+                        <span asp-validation-for="Stars" class="text-danger small"></span>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <input asp-for="City" class="form-control" />
+                        <span asp-validation-for="City" class="text-danger small"></span>
+                    </div>
+                    <div class="form-check col-sm-2">
+                        <input type="submit" value="Search" class="btn btn-info" />
+                    </div>
+                </div>
+            </form>
+
+            @if (Model.Hotels != null)
+            {
+                <!-- List group-->
+                <ul class="list-group shadow">
+                    @foreach (var hotel in Model.Hotels)
+                    {
+                        <!-- list group item-->
+                        <li class="list-group-item">
+                            <!-- Custom content-->
+                            <div class="media align-items-lg-center flex-column flex-lg-row p-">
+                                <div class="media-body order-2 order-lg-1">
+                                    <h5 class="mt-0 font-weight-bold mb-2">
+                                        <a class="link-unstyled" asp-action="Hotel" asp-route-id="@hotel.Id">@hotel.Name</a>
+                                    </h5>
+                                    <p class="font-italic text-muted mb-0 small">@hotel.DescriptionShort</p>
+                                    <p class="font-italic text-muted mb-0 small">Address: @hotel.City @hotel.Address</p>
+                                    <div class="d-flex align-items-center justify-content-between mt-1">
+                                        <h6 class="font-weight-bold my-2">$120.00</h6>
+                                        <ul class="list-inline small">
+                                            @for (int i = 1; i <= 5; i++)
+                                            {
+                                                @if (i <= hotel.Stars)
+                                                {
+                                                    <li class="list-inline-item m-0"><i class="fa fa-star text-warning"></i></li>
+                                                }
+                                                else
+                                                {
+                                                    <li class="list-inline-item m-0"><i class="fa fa-star-o text-gray"></i></li>
+                                                }
+                                            }
+                                        </ul>
+                                    </div>
+                                </div><img src="~/img/riviera.jpg" alt="Generic placeholder image" width="200" class="ml-lg-5 order-1 order-lg-2 img-thumbnail">
+                            </div>
+                        </li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <div class="h4 text-center">Please fill the fields to the list of hotels</div>
+            }
+        </div>
+    </div>
+</div>
