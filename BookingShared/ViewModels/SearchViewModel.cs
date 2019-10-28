@@ -17,5 +17,11 @@ namespace BookingShared.ViewModels
         [Range(1, 5)]
         public int Stars { get; set; }
         public List<HotelModel> Hotels { get; set; }
+
+        public SearchViewModel()
+        {
+            Stars = 3;
+            City = "Kazan";
+        }
     }
 }

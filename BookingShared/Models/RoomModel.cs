@@ -6,7 +6,7 @@ namespace BookingShared.Models
 {
     public class RoomModel : BaseEntity
     {
-        public HotelModel HotelModel { get; set; }
+        public virtual HotelModel HotelModel { get; set; }
         public int HotelModelId { get; set; }
         public string RoomNumber { get; set; }
         public string Description { get; set; }

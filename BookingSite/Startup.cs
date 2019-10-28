@@ -29,7 +29,9 @@ namespace BookingSite
             services.AddTransient<IRepository, EfRepository>();
             services.AddTransient<DbContext, BookingDbContext>();
             services.AddDbContext<BookingDbContext>(options =>
-                options.UseSqlite("Data Source=database.sqlite"));
+                options
+                .UseLazyLoadingProxies()
+                .UseSqlite("Data Source=database.sqlite"));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

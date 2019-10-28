@@ -1,4 +1,5 @@
-﻿@model BookingShared.ViewModels.AccountViewModel
+﻿@using Humanizer;
+@model BookingShared.ViewModels.AccountViewModel
 @{
     ViewData["Title"] = "Account Page";
 }
@@ -18,18 +19,18 @@ else
                 Welcome, dear @Model.AppUser.FirstName @Model.AppUser.LastName
             </div>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-5">
             <div class="h3">
                 My Personal Data
             </div>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-7">
             <div class="h3">
                 My bookings
             </div>
             @if (Model.Bookings.Any())
             {
-                <table class="table-responsive table-striped">
+                <table class="table table-striped ">
                     <thead>
                         <tr>
                             <td>
@@ -57,10 +58,10 @@ else
                                     @booking.RoomModel.RoomNumber
                                 </td>
                                 <td>
-                                    @booking.BeginDate
+                                    @booking.BeginDate.ToOrdinalWords()
                                 </td>
                                 <td>
-                                    @booking.EndDate
+                                    @booking.EndDate.ToOrdinalWords()
                                 </td>
                             </tr>
                         }
