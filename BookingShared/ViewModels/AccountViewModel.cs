@@ -5,7 +5,6 @@ using System.Text;
 
 namespace BookingShared.ViewModels
 {
-    // TODO: Add to Account-Index View
     public class AccountViewModel
     {
         public List<BookingModel> Bookings { get; set; }

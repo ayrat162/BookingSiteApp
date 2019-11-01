@@ -70,7 +70,7 @@ namespace BookingSite.Controllers
                 await _signInMgr.SignOutAsync();
             }
             catch { }
-            return View("Index", "Home");
+            return RedirectToAction("Index", "Home");
         }
 
         public async Task<IActionResult> Index()
@@ -84,7 +84,6 @@ namespace BookingSite.Controllers
                     AppUser = user,
                     Bookings = _repository.ListQuery<BookingModel>(b => b.UserId == user.Id)
                 };
-                // TODO: Enable lazy loading of hotel info
                 return View(accountViewModel);
             }
             return View();

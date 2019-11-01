@@ -51,13 +51,12 @@
                     <p class="font-italic text-muted mb-0" id="hotelAddress">
                         Address: @Model.Hotel.City @Model.Hotel.Address
                         @* TODO: MapPartialView - https://stackoverflow.com/questions/40787998/proper-way-to-include-google-maps-in-net-core *@
-                        <button class="btn btn-info" onclick="initMap()">Show on the map</button>
                     </p>
                 </div>
                 <div class="col col-4">
                     <img src="~/img/riviera.jpg" alt="" class="img-thumbnail">
                 </div>
-                <div class="col col-md-6">
+                <div class="col col-md-6 mx-auto">
                     <style>
                         #map {
                             margin: 0;
