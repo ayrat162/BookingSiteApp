@@ -2,6 +2,7 @@ using BookingBLL;
 using BookingDAL;
 using BookingShared.Interfaces;
 using BookingShared.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -25,6 +26,11 @@ namespace BookingSite
             services.AddIdentity<AppUser, AppRole>(options =>
              {options.User.RequireUniqueEmail = true;})
                 .AddEntityFrameworkStores<BookingDbContext>();
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                 {
+                     options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
+                 });
             services.AddControllersWithViews();
             services.AddTransient<IRepository, EfRepository>();
             services.AddTransient<DbContext, BookingDbContext>();
@@ -49,9 +55,8 @@ namespace BookingSite
             app.UseStaticFiles();
 
             app.UseRouting();
-
-            app.UseAuthorization();
             app.UseAuthentication();
+            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
