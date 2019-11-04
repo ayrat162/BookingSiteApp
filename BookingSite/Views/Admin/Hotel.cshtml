@@ -1,0 +1,34 @@
+﻿@model BookingShared.ViewModels.AdminHotelFullViewModel
+@{
+    ViewData["Title"] = "Hotel";
+}
+
+<h1>Hotel #@Model.Hotel.Id: @Model.Hotel.Name</h1>
+
+<form method="post" asp-controller="Book" asp-action="Room" class="m-3">
+    <div class="form-group col">
+        <label asp-for="Hotel.Name" class="control-label"></label><br />
+        <input asp-for="Hotel.Name" class="form-control" />
+        <span asp-validation-for="Hotel.Name" class="text-danger"></span>
+    </div>
+    <div class="form-group col">
+        <label asp-for="Hotel.City" class="control-label"></label><br />
+        <input asp-for="Hotel.City" class="form-control" />
+        <span asp-validation-for="Hotel.City" class="text-danger"></span>
+    </div>
+    <div class="form-group col">
+        <label asp-for="Hotel.Address" class="control-label"></label><br />
+        <input asp-for="Hotel.Address" class="form-control" />
+        <span asp-validation-for="Hotel.Address" class="text-danger"></span>
+    </div>
+    <div class="form-group col">
+        <label asp-for="Hotel.DescriptionShort" class="control-label"></label><br />
+        <input asp-for="Hotel.DescriptionShort" class="form-control" />
+        <span asp-validation-for="Hotel.DescriptionShort" class="text-danger"></span>
+    </div>
+    <div class="form-group col">
+        <label asp-for="Details.FullDescription" class="control-label"></label><br />
+        <input asp-for="Details.FullDescription" class="form-control" />
+        <span asp-validation-for="Details.FullDescription" class="text-danger"></span>
+    </div>
+</form>

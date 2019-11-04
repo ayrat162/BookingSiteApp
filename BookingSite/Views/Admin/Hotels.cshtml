@@ -1,0 +1,39 @@
+﻿@model BookingShared.ViewModels.AdminHotelsViewModel
+@{
+    ViewData["Title"] = "Hotels";
+}
+
+<h1>Hotels</h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <td>Name</td>
+            <td>Stars</td>
+            <td>City</td>
+            <td>Address</td>
+            <td>MapLink</td>
+            <td>Short Description</td>
+            <td>Full Description</td>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var hotel in Model.Hotels)
+        {
+            <tr>
+                <td>@hotel.Name</td>
+                <td>@hotel.Stars</td>
+                <td>@hotel.City</td>
+                <td>@hotel.Address</td>
+                <td>@hotel.MapLink</td>
+                <td>@hotel.DescriptionShort</td>
+                <td>@Model.Details.FirstOrDefault(d => d.HotelModelId == @hotel.Id)?.FullDescription.ToString()</td>
+                <td>
+                    <a class="btn btn-link" href="#">Edit</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

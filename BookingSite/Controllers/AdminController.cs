@@ -33,6 +33,8 @@ namespace BookingSite.Controllers
             return View(roles);
         }
 
+        #region working with users data
+
         public async Task<IActionResult> Users()
         {
             var usersWithRoles = new List<UserViewModel>();
@@ -50,7 +52,6 @@ namespace BookingSite.Controllers
             return View(usersWithRoles);
         }
 
-
         public async Task<IActionResult> UserInfo(int id)
         {
             var user = await _userManager.FindByIdAsync(id.ToString());
@@ -62,6 +63,37 @@ namespace BookingSite.Controllers
             };
             return View(userInfo);
         }
+
+        #endregion
+
+        #region working with hotels and bookings
+
+        public async Task<IActionResult> Hotels()
+        {
+            var viewModel = new AdminHotelsViewModel
+            {
+                Hotels = _repository.List<HotelModel>(),
+                Details = _repository.List<HotelDetailsModel>()
+            };
+            return View(viewModel);
+        }
+
+        public async Task<IActionResult> Hotel(int id)
+        {
+            var hotel = _repository.GetById<HotelModel>(id);
+            var hotelDetail = _repository.ListQuery<HotelDetailsModel>(d => d.HotelModelId == id).FirstOrDefault();
+            var hotelBookings = _repository.ListQuery<BookingModel>(b => b.RoomModel.HotelModelId == id);
+
+            var viewModel = new AdminHotelFullViewModel
+            {
+                Hotel = hotel,
+                Details = hotelDetail,
+                Bookings = hotelBookings
+            };
+            return View(viewModel);
+        }
+
+        #endregion
 
         public async Task<IActionResult> BecomeAdmin()
         {
