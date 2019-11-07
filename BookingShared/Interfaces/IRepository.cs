@@ -1,4 +1,5 @@
 ﻿using BookingShared.Models;
+using BookingShared.ViewModels;
 using System;
 using System.Collections.Generic;
 
@@ -12,5 +13,6 @@ namespace BookingShared.Interfaces
         T Add<T>(T entity) where T : BaseEntity;
         void Update<T>(T entity) where T : BaseEntity;
         void Delete<T>(T entity) where T : BaseEntity;
+        List<HotelModel> SearchHotels(SearchViewModel searchViewModel);
     }
 }

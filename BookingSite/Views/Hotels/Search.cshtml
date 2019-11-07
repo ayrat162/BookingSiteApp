@@ -3,12 +3,14 @@
     ViewData["Title"] = "Search";
 }
 
-<h1>Search</h1>
 
+    <div class="mx-auto text-center">
+        <h2>Search</h2>
+    </div>
 <div class="container py-5">
     <div class="row">
         <div class="col-lg-10 mx-auto">
-            <form method="post" asp-controller="Hotels" asp-action="Search">
+            <form method="post" class="text-center" asp-controller="Hotels" asp-action="Search">
                 <div class="form-row">
                     <div class="form-group col-sm-4">
                         <input asp-for="Name" class="form-control" />
@@ -23,8 +25,8 @@
                         <span asp-validation-for="City" class="text-danger small"></span>
                     </div>
                     <div class="form-group col-sm-4">
-                        <input asp-for="StartDate" class="form-control" />
-                        <span asp-validation-for="StartDate" class="text-danger small"></span>
+                        <input asp-for="BeginDate" class="form-control" />
+                        <span asp-validation-for="BeginDate" class="text-danger small"></span>
                     </div>
                     <div class="form-group col-sm-4">
                         <input asp-for="EndDate" class="form-control" />

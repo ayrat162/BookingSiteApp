@@ -21,6 +21,7 @@ namespace BookingShared.Models
         public string Nationality { get; set; }
 
         [Display(Name = "Date of Birth")]
+        [DataType(DataType.Date)]
         public DateTime DateOfBirth { get; set; }
 
         [Display(Name = "Mobile Number")]

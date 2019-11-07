@@ -29,11 +29,11 @@ namespace BookingSite.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (searchViewModel.City == null) searchViewModel.City = "Kazan"; 
-                var hotels = _repository.ListQuery<HotelModel>(
-                    h => h.Name.Contains(searchViewModel.Name) 
-                         && h.Stars >= searchViewModel.Stars
-                         && h.City.Contains(searchViewModel.City));
+                if (searchViewModel.Name == null) searchViewModel.Name = "";
+                if (searchViewModel.City == null) searchViewModel.City = "Kazan";
+                searchViewModel.Name = searchViewModel.Name.Trim();
+                searchViewModel.City = searchViewModel.City.Trim();
+                var hotels = _repository.SearchHotels(searchViewModel);
                 searchViewModel.Hotels = hotels;
                 return View(searchViewModel);
             }

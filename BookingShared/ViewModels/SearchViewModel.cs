@@ -8,24 +8,27 @@ namespace BookingShared.ViewModels
 {
     public class SearchViewModel
     {
-        [Required]
         [Display(Name = "Name", Prompt = "Hotel name")]
         public string Name { get; set; }
-        [Display(Name = "Name", Prompt = "City")]
+        [Display(Name = "City", Prompt = "City")]
         public string City { get; set; }
         [Display(Name = "Stars", Prompt = "Stars")]
         [Range(1, 5)]
         public int Stars { get; set; }
-        public List<HotelModel> Hotels { get; set; }
+        
 
-        public DateTime StartDate { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime BeginDate { get; set; }
+        [DataType(DataType.Date)]
         public DateTime EndDate { get; set; }
 
+        public List<HotelModel> Hotels { get; set; }
+        
         public SearchViewModel()
         {
             Stars = 3;
             City = "Kazan";
-            StartDate = DateTime.Today;
+            BeginDate = DateTime.Today;
             EndDate = DateTime.Today;
         }
     }

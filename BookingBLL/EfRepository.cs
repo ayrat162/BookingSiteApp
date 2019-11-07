@@ -1,5 +1,6 @@
 ﻿using BookingShared.Interfaces;
 using BookingShared.Models;
+using BookingShared.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -48,6 +49,24 @@ namespace BookingBLL
         {
             _dbContext.Entry(entity).State = EntityState.Modified;
             _dbContext.SaveChanges();
+        }
+
+
+        public List<HotelModel> SearchHotels(SearchViewModel searchViewModel)
+        {
+            var bookings = _dbContext.Set<BookingModel>().Where(b =>
+                    (b.BeginDate < searchViewModel.BeginDate && b.EndDate > searchViewModel.BeginDate)
+                    || (b.BeginDate < searchViewModel.EndDate && b.EndDate > searchViewModel.EndDate));
+            var emptyRooms = _dbContext.Set<RoomModel>().Where(r => !bookings.Select(b => b.RoomModelId).Contains(r.Id));
+            var emptyHotels = _dbContext.Set<HotelModel>()
+                .Where(h =>
+                    h.Stars >= searchViewModel.Stars
+                    && emptyRooms.Select(r => r.HotelModelId).Contains(h.Id));
+            if (!string.IsNullOrEmpty(searchViewModel.Name))
+                emptyHotels = emptyHotels.Where(h => h.Name.Contains(searchViewModel.Name));
+            if (!string.IsNullOrEmpty(searchViewModel.City))
+                emptyHotels = emptyHotels.Where(h => h.City.Contains(searchViewModel.City));
+            return emptyHotels.ToList();
         }
     }
 }
