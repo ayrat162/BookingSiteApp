@@ -2,8 +2,9 @@
 @{
     ViewData["Title"] = "Index";
 }
-
-@foreach (var item in Model)
-{
-    <p>@item</p>
-}
+<div class="row text-center">
+    <a class="h3 btn btn-info mx-auto" asp-area="" asp-controller="Admin" asp-action="Hotels">Manage Hotels</a>
+</div>
+<div class="row text-center">
+    <a class="h3 btn btn-info mx-auto" asp-area="" asp-controller="Admin" asp-action="Users">Manage Users</a>
+</div>

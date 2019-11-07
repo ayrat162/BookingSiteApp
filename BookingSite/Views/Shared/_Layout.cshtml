@@ -18,7 +18,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav ml-auto">
+                    <ul class="navbar-nav ml-auto" id="navAuthorization">
                         <li>
                             @if (User.Identity.IsAuthenticated)
                             {
@@ -34,14 +34,31 @@
                             }
                         </li>
                     </ul>
-                    <ul class="navbar-nav flex-grow-1">
+                    <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Hotels" asp-action="Index">Hotels</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="hotelsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Hotels
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="hotelsDropdown">
+                                <a class="dropdown-item" asp-controller="Hotels" asp-action="Index">All Hotels</a>
+                                <a class="dropdown-item" asp-controller="Hotels" asp-action="Search">Search</a>
+                            </div>
                         </li>
-                        
+                        @if (User.IsInRole("admin"))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Admin
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="adminDropdown">
+                                    <a class="dropdown-item" asp-controller="Admin" asp-action="Users">Manage Users</a>
+                                    <a class="dropdown-item" asp-controller="Admin" asp-action="Hotels">Manage Hotels</a>
+                                </div>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>

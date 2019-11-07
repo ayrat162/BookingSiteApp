@@ -18,10 +18,15 @@ namespace BookingShared.ViewModels
         public int Stars { get; set; }
         public List<HotelModel> Hotels { get; set; }
 
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+
         public SearchViewModel()
         {
             Stars = 3;
             City = "Kazan";
+            StartDate = DateTime.Today;
+            EndDate = DateTime.Today;
         }
     }
 }
