@@ -1,4 +1,5 @@
-﻿using BookingBLL.Helpers;
+﻿using BookingBLL;
+using BookingBLL.Helpers;
 using BookingShared.Interfaces;
 using BookingShared.Models;
 using BookingSite.Models;
@@ -11,13 +12,15 @@ namespace BookingSite.Controllers
     public class HomeController : Controller
     {
         private readonly IRepository _repository;
-        public HomeController(IRepository repository)
+        private readonly IEmailService _emailService;
+        public HomeController(IRepository repository, IEmailService emailService)
         {
             _repository = repository;
+            _emailService = emailService;
         }
 
         public IActionResult Index()
-        {   
+        {
             var hotelsCount = _repository.List<HotelModel>().Count;
             var showPopulateButton = (hotelsCount == 0);
             return View(showPopulateButton);

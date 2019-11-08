@@ -24,16 +24,22 @@ namespace BookingSite
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddIdentity<AppUser, AppRole>(options =>
-             {options.User.RequireUniqueEmail = true;})
+             { options.User.RequireUniqueEmail = true; })
                 .AddEntityFrameworkStores<BookingDbContext>();
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
-                 {
-                     options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
-                 });
+                {
+                    options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
+                });
             services.AddControllersWithViews();
+
+            services.AddOptions();
+            services.Configure<EmailCredentials>(Configuration.GetSection("EmailCredentials"));
+            
+            
             services.AddTransient<IRepository, EfRepository>();
             services.AddTransient<DbContext, BookingDbContext>();
+            services.AddTransient<IEmailService, EmailService>();
             services.AddDbContext<BookingDbContext>(options =>
                 options
                 .UseLazyLoadingProxies()
