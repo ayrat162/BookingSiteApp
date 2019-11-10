@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BookingBLL;
 using BookingShared.Interfaces;
 using BookingShared.Models;
 using BookingShared.ViewModels;
@@ -15,12 +16,19 @@ namespace BookingSite.Controllers
         private readonly IRepository _repository;
         private UserManager<AppUser> _userManager { get; set; }
         private SignInManager<AppUser> _signInMgr { get; set; }
+        private readonly IEmailService _emailService;
 
-        public AccountController(IRepository repository, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
+
+        public AccountController(
+            IRepository repository, 
+            UserManager<AppUser> userManager, 
+            SignInManager<AppUser> signInManager,
+            IEmailService emailService)
         {
             _repository = repository;
             _userManager = userManager;
             _signInMgr = signInManager;
+            _emailService = emailService;
         }
 
         [TempData]
@@ -30,6 +38,33 @@ namespace BookingSite.Controllers
         public async Task<IActionResult> Register()
         {
             return View(new RegisterViewModel());
+        }
+
+        //https://localhost:5001/Account/Confirm/33451e5c-b52c-4ce5-8597-cf1755ca4c20
+        public async Task<IActionResult> Confirm(string id)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var user = await _userManager.GetUserAsync(HttpContext.User);
+                if (user.ConfirmationCode == id)
+                {
+                    user.EmailConfirmed = true;
+                    await _userManager.UpdateAsync(user);
+                    TempData["Message"] = "Your email has been successfully confirmed";
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    TempData["Message"] = "Wrong confirmation code";
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            else
+            {
+                TempData["Message"] = "Please login first";
+                return RedirectToAction("Login", "Account");
+
+            }
         }
 
         [HttpPost]
@@ -48,12 +83,13 @@ namespace BookingSite.Controllers
                     else
                     {
                         user = new AppUser(registerViewModel);
-
+                        
                         var result = await _userManager.CreateAsync(user, registerViewModel.Password);
 
                         if (result.Succeeded)
                         {
-                            return View("Index", "Account");
+                            _emailService.SendConfirmationEmail(user);
+                            return View("Index");
                         }
                     }
                 }

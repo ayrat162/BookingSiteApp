@@ -29,7 +29,7 @@ namespace BookingShared.Models
 
         [Display(Name = "PassportNumber")]
         public string PassportNumber { get; set; }
-
+        public string ConfirmationCode { get; set; }
 
         public AppUser(RegisterViewModel registerViewModel)
         {
@@ -43,6 +43,7 @@ namespace BookingShared.Models
                 MobileNumber = registerViewModel.MobileNumber;
                 PassportNumber = registerViewModel.PassportNumber;
                 Email = registerViewModel.Email;
+                ConfirmationCode = Guid.NewGuid().ToString();
             }
         }
 

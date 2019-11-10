@@ -12,11 +12,9 @@ namespace BookingSite.Controllers
     public class HomeController : Controller
     {
         private readonly IRepository _repository;
-        private readonly IEmailService _emailService;
         public HomeController(IRepository repository, IEmailService emailService)
         {
             _repository = repository;
-            _emailService = emailService;
         }
 
         public IActionResult Index()

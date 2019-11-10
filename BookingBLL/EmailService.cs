@@ -20,6 +20,18 @@ namespace BookingBLL
             _logger = logger;
             _credentials = new NetworkCredential(emailCredOptions.Value.Email, emailCredOptions.Value.Password);
         }
+
+        public void SendConfirmationEmail(AppUser user)
+        {
+            var link = $"https://localhost:5001/Account/Confirm/{user.ConfirmationCode}";
+            var message = $"Dear {user.FirstName} {user.LastName},\n Thank you for registering on our web site.\n";
+            message += $"In order to be able to book the rooms, please confirm you email by pressing the following link:\n";
+            message += $"<a href=\"{link}\">{link}</a>\n";
+            message += $"Kind regards, Airat";
+
+            SendEmail($"{user.FirstName} {user.LastName}", user.Email, message);
+        }
+
         public void SendEmail(string name, string email, string message)
         {
             try
