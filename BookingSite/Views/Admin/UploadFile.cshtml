@@ -1,0 +1,59 @@
+﻿@model IEnumerable<BookingShared.Models.FileModel>
+@{
+    ViewData["Title"] = "UploadFile";
+}
+
+<h3>Upload File</h3>
+<form asp-action="UploadFile" method="post" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col col-md-4">
+            <input class="custom-file" type="file" name="uploadedFile" />
+        </div>
+        <div class="col col-md-2">
+            <input class="btn btn-primary" type="submit" value="Upload" />
+        </div>
+    </div>
+</form>
+
+
+<h3>Known Files in DB</h3>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <td>
+                Preview
+            </td>
+            <td>
+                ID
+            </td>
+            <td>
+                FileName
+            </td>
+            <td>
+                Path
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var file in Model)
+        {
+            <tr>
+                <td>
+                    @if (@file.Name.EndsWith(".jpg") || @file.Name.EndsWith(".png") || @file.Name.EndsWith(".webp"))
+                    {
+                    <img class="img img-thumbnail" width="50px" src="@file.Path" alt="@file.Name" />
+                    }
+                </td>
+                <td>
+                    @file.Id
+                </td>
+                <td>
+                    @file.Name
+                </td>
+                <td>
+                    <a href="@file.Path">@file.Path</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

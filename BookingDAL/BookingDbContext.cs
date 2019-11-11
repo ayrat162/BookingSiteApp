@@ -22,5 +22,7 @@ namespace BookingDAL
         public DbSet<HotelDetailsModel> Details { get; set; }
         public DbSet<RoomModel> Rooms { get; set; }
         public DbSet<BookingModel> Bookings { get; set; }
+        public DbSet<FileModel> Files { get; set; }
+
     }
 }
