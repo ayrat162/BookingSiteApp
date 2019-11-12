@@ -1,14 +1,7 @@
 ﻿@model BookingShared.ViewModels.UserViewModel
-@{
-    ViewData["Title"] = "UserInfo";
-}
-
-<div class="h4 text-info">Information about user @Model.user.UserName</div>
 
 <div>
-    <div asp-validation-summary="All" class="text-danger"></div>
-
-    <form method="post" asp-controller="Account" asp-action="Register">
+    <form method="post" asp-controller="Admin" asp-action="_User">
         <div class="form-group col-md-3">
             <label asp-for="user.Email" class="control-label"></label><br />
             <input asp-for="user.Email" class="form-control" />
@@ -49,8 +42,8 @@
             <input asp-for="user.PassportNumber" class="form-control" />
             <span asp-validation-for="user.PassportNumber" class="text-danger"></span>
         </div>
-        @*<div class="form-check col-md-3">
-            <input type="submit" value="Change" class="btn btn-info" />
-        </div>*@
+        <div class="form-check col-md-3">
+            <input type="submit" value="Save" class="btn btn-info" />
+        </div>
     </form>
 </div>

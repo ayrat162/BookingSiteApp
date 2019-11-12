@@ -16,6 +16,7 @@ namespace BookingSite.Controllers
     [Authorize(Roles="admin")]
     public class AdminController : Controller
     {
+        #region constructor and private fields
         private readonly IRepository _repository;
         private UserManager<AppUser> _userManager;
         private SignInManager<AppUser> _signInMgr;
@@ -35,6 +36,7 @@ namespace BookingSite.Controllers
             _rolesMgr = rolesManager;
             _appEnvironment = appEnvironment;
         }
+        #endregion
 
         public async Task<IActionResult> Index()
         {
@@ -62,8 +64,9 @@ namespace BookingSite.Controllers
             return View(usersWithRoles);
         }
 
-        public async Task<IActionResult> UserInfo(int id)
+        public async Task<IActionResult> _User(int id)
         {
+            // TODO: To be implemented as here: https://stackoverflow.com/questions/11231862/using-bootstrap-modal-window-as-partialview
             var user = await _userManager.FindByIdAsync(id.ToString());
             var roles = await _userManager.GetRolesAsync(user);
             var userInfo = new UserViewModel
@@ -111,7 +114,6 @@ namespace BookingSite.Controllers
         }
 
         #endregion
-
 
         #region working with files
 
