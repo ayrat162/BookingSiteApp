@@ -67,6 +67,7 @@ namespace BookingSite.Controllers
         public async Task<IActionResult> _User(int id)
         {
             // TODO: To be implemented as here: https://stackoverflow.com/questions/11231862/using-bootstrap-modal-window-as-partialview
+            // here as well: https://exceptionnotfound.net/asp-net-mvc-demystified-unobtrusive-validation/
             var user = await _userManager.FindByIdAsync(id.ToString());
             var roles = await _userManager.GetRolesAsync(user);
             var userInfo = new UserViewModel
