@@ -7,6 +7,10 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <script src="https://kit.fontawesome.com/8c19e5d387.js" crossorigin="anonymous"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
 </head>
 <body>
     <header>
@@ -22,9 +26,9 @@
                         <li>
                             @if (User.Identity.IsAuthenticated)
                             {
-                            <a asp-action="Index" asp-controller="Account">
-                                @User.Identity.Name
-                            </a>
+                                <a asp-action="Index" asp-controller="Account">
+                                    @User.Identity.Name
+                                </a>
                                 <a class="btn-link btn-link" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
                             }
                             else
@@ -80,9 +84,5 @@
             &copy; 2019 - BookingSite - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @RenderSection("Scripts", required: false)
 </body>
 </html>

@@ -18,7 +18,7 @@ namespace BookingSite.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Room(RoomBookingViewModel bookingViewModel)
+        public async Task<IActionResult> Room(BookingFormViewModel bookingViewModel)
         {
             if (ModelState.IsValid)
             {

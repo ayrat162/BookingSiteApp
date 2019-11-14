@@ -11,7 +11,9 @@
 <div class="modal fade" id="myModal">
     <div class="modal-dialog">
         <div class="modal-content">
-            <partial name="_BookingForm.cshtml" model="new RoomBookingViewModel() { BeginDate = DateTime.Today, EndDate = DateTime.Today.AddDays(1), Rooms = Model.Rooms.ToList() }">
+            @*<partial name="_BookingForm.cshtml"
+                model="new RoomBookingViewModel()
+                           { BeginDate = DateTime.Today, EndDate = DateTime.Today.AddDays(1), Rooms = Model.Rooms.ToList() }">*@
         </div>
     </div>
 </div>
@@ -64,9 +66,10 @@
                             height: 400px;
                             max-width: none;
                         }
-                        #map img {
-                            max-width: none !important;
-                        }
+
+                            #map img {
+                                max-width: none !important;
+                            }
                     </style>
                     <div id="map"></div>
 
@@ -92,7 +95,6 @@
                         <hr />
                         <h5>Available Rooms</h5>
                     </div>
-                    @* TODO: Replace with real rooms *@
                     @foreach (var room in Model.Rooms)
                     {
                         <div class="col-md-3">
@@ -104,7 +106,7 @@
                                 <div class="card-text small text-center">
                                     @room.Description
                                 </div>
-                                <button type="button" class="btn" data-toggle="modal" data-target="#myModal">
+                                <button type="button" class="btn" id="showModalButton" data-roomid="@room.Id">
                                     Book it $@room.Price
                                 </button>
                             </div>
@@ -115,3 +117,22 @@
         </div>
     </div>
 </div>
+
+
+<script>
+    $( document ).ready( function () {
+        $('#showModalButton').click(function () {
+
+            console.log("log1");
+            var url = $('#myModal').data('/Hotels/_BookingForm/1');
+            console.log(url.data);
+            console.log("log2");
+            $.get(url, function (data) {
+                console.log("log3");
+                $('#myModal').html(data);
+                console.log("log4");
+                $('#myModal').modal('show');
+            });
+        });
+    });
+</script>

@@ -21,14 +21,14 @@ namespace BookingSite.Controllers
         private UserManager<AppUser> _userManager;
         private SignInManager<AppUser> _signInMgr;
         private RoleManager<AppRole> _rolesMgr;
-        private IHostingEnvironment _appEnvironment;
+        private IWebHostEnvironment _appEnvironment;
 
         public AdminController(
             IRepository repository, 
             UserManager<AppUser> userManager, 
             SignInManager<AppUser> signInManager, 
             RoleManager<AppRole> rolesManager,
-            IHostingEnvironment appEnvironment)  
+            IWebHostEnvironment appEnvironment)  
         {
             _repository = repository;
             _userManager = userManager;
@@ -89,7 +89,7 @@ namespace BookingSite.Controllers
 
         #region working with hotels and bookings
 
-        public async Task<IActionResult> Hotels()
+        public IActionResult Hotels()
         {
             var viewModel = new AdminHotelsViewModel
             {
@@ -99,7 +99,7 @@ namespace BookingSite.Controllers
             return View(viewModel);
         }
 
-        public async Task<IActionResult> Hotel(int id)
+        public IActionResult Hotel(int id)
         {
             var hotel = _repository.GetById<HotelModel>(id);
             var hotelDetail = _repository.ListQuery<HotelDetailsModel>(d => d.HotelModelId == id).FirstOrDefault();
@@ -138,7 +138,7 @@ namespace BookingSite.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> UploadFile()
+        public IActionResult UploadFile()
         {
             var files = _repository.List<FileModel>();
             return View(files);

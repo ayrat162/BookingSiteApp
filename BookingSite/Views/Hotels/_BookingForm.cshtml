@@ -1,17 +1,22 @@
-﻿@model BookingShared.ViewModels.RoomBookingViewModel;
+﻿@model BookingShared.ViewModels.BookingFormViewModel;
 
     <form method="post" asp-controller="Book" asp-action="Room" class="m-3">
 
-        <div class="form-group col">
+        @*<div class="form-group col">
             <select asp-for="RoomId" asp-items="@(new SelectList(Model.Rooms,"Id","RoomNumber"))" class="form-control">
                 <option>Please select the Room</option>
             </select>
-        </div>
-        @*<div class="form-group col">
-            <label asp-for="RoomName" class="control-label"></label><br />
-            <input asp-for="RoomName" class="form-control" />
-            <span asp-validation-for="RoomName" class="text-danger"></span>
         </div>*@
+        <div class="form-group col">
+            <label asp-for="RoomNumber" class="control-label"></label><br />
+            <input asp-for="RoomNumber" class="form-control" />
+            <span asp-validation-for="RoomNumber" class="text-danger"></span>
+        </div>
+        <div class="form-group col">
+            <label asp-for="RoomId" class="control-label"></label><br />
+            <input asp-for="RoomId" class="form-control" />
+            <span asp-validation-for="RoomId" class="text-danger"></span>
+        </div>
         <div class="form-group col">
             <label asp-for="BeginDate" class="control-label"></label><br />
             <input type="date" asp-for="BeginDate" class="form-control" />

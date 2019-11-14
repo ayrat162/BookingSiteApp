@@ -35,7 +35,7 @@ namespace BookingSite.Controllers
         public string Message { get; set; }
 
         [HttpGet]
-        public async Task<IActionResult> Register()
+        public IActionResult Register()
         {
             return View(new RegisterViewModel());
         }
@@ -126,7 +126,7 @@ namespace BookingSite.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Login()
+        public IActionResult Login()
         {
             return View(new LoginViewModel { ReturnUrl = ""});
         }
@@ -155,7 +155,7 @@ namespace BookingSite.Controllers
                         return View();
                     }
                 }
-                catch(Exception ex)
+                catch
                 {
                     Message = "There was an error while logging in";
                     return View();

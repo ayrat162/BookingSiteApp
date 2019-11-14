@@ -25,7 +25,7 @@ namespace BookingSite.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Search(SearchViewModel searchViewModel)
+        public IActionResult Search(SearchViewModel searchViewModel)
         {
             if (ModelState.IsValid)
             {
@@ -46,6 +46,15 @@ namespace BookingSite.Controllers
         [HttpGet]
         public async Task<IActionResult> Search() {
             return View(new SearchViewModel());
+        }
+
+        public async Task<IActionResult> _BookingForm(int id)
+        {
+            var bookingFormViewModel = new BookingFormViewModel();
+            bookingFormViewModel.RoomId = id;
+            var room = _repository.GetById<RoomModel>(id);
+            bookingFormViewModel.RoomNumber = room.RoomNumber;
+            return View(bookingFormViewModel);
         }
 
         public async Task<IActionResult> Hotel(int id)

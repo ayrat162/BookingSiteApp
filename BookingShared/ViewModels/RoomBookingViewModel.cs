@@ -6,13 +6,13 @@ using System.Text;
 
 namespace BookingShared.ViewModels
 {
-    public class RoomBookingViewModel
+    public class BookingFormViewModel
     {
         [Required]
         public int RoomId { get; set; }
-                
-        public List<RoomModel> Rooms { get; set; }
-        
+
+        public string RoomNumber { get; set; }
+
         [Required]
         [DataType(DataType.Date)]
         public DateTime BeginDate { get; set; }
