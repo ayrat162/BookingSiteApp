@@ -1,5 +1,4 @@
-﻿@using BookingShared.ViewModels
-@model BookingShared.ViewModels.HotelWithRoomsViewModel
+﻿@model BookingShared.ViewModels.HotelWithRoomsViewModel
 @{
     ViewData["Title"] = Model.Hotel.Name;
 }
@@ -8,12 +7,10 @@
     <h2 class="display-4">Hotels</h2>
 </div>
 
-<div class="modal fade" id="myModal">
-    <div class="modal-dialog">
+<div class="modal fade" id="bookingModal">
+    <div id="modalContainer" class="modal-dialog">
         <div class="modal-content">
-            @*<partial name="_BookingForm.cshtml"
-                model="new RoomBookingViewModel()
-                           { BeginDate = DateTime.Today, EndDate = DateTime.Today.AddDays(1), Rooms = Model.Rooms.ToList() }">*@
+
         </div>
     </div>
 </div>
@@ -106,9 +103,11 @@
                                 <div class="card-text small text-center">
                                     @room.Description
                                 </div>
-                                <button type="button" class="btn" id="showModalButton" data-roomid="@room.Id">
-                                    Book it $@room.Price
-                                </button>
+
+                                @Html.ActionLink("Book it $" + room.Price,
+                                       "_BookingForm",
+                                       new { id = room.Id },
+                                       new { @class = "hotelRoom link-unstyled text-center" })
                             </div>
                         </div>
                     }
@@ -120,19 +119,14 @@
 
 
 <script>
-    $( document ).ready( function () {
-        $('#showModalButton').click(function () {
-
-            console.log("log1");
-            var url = $('#myModal').data('/Hotels/_BookingForm/1');
-            console.log(url.data);
-            console.log("log2");
-            $.get(url, function (data) {
-                console.log("log3");
-                $('#myModal').html(data);
-                console.log("log4");
-                $('#myModal').modal('show');
+    $(function () {
+        $.ajaxSetup({ cache: false });
+        $(".hotelRoom").click(function (e) {
+            e.preventDefault();
+            $.get(this.href, function (data) {
+                $('#modalContainer').html(data);
+                $('#bookingModal').modal('show');
             });
         });
-    });
+    })
 </script>
