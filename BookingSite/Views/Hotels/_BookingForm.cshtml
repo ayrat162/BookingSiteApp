@@ -3,6 +3,10 @@
 @{
     Layout = null;
 }
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/js/tempusdominus-bootstrap-4.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/css/tempusdominus-bootstrap-4.min.css" />
+
 <div class="modal-content">
     <form method="post" asp-controller="Book" asp-action="Room" class="m-3">
         <div class="form-group col">
@@ -15,10 +19,11 @@
             <input asp-for="RoomId" class="form-control" />
             <span asp-validation-for="RoomId" class="text-danger"></span>
         </div>
-        <div class="form-group col">
-            <label asp-for="BeginDate" class="control-label"></label><br />
-            <input type="date" asp-for="BeginDate" class="form-control" />
-            <span asp-validation-for="BeginDate" class="text-danger"></span>
+        <div class="input-group date col" id="BeginDate" data-target-input="nearest">
+            <input type="text" class="form-control datetimepicker-input" data-target="#BeginDate" />
+            <div class="input-group-append" data-target="#BeginDate" data-toggle="datetimepicker">
+                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+            </div>
         </div>
         <div class="form-group col">
             <label asp-for="EndDate" class="control-label"></label><br />
@@ -30,3 +35,17 @@
         </div>
     </form>
 </div>
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+    $(function () {
+        $('#BeginDate').datetimepicker();
+        $('#EndDate').datetimepicker();
+    });
+</script>
