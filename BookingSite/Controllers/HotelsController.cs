@@ -18,12 +18,19 @@ namespace BookingSite.Controllers
             _repository = repository;
         }
 
+        // TODO: Add pagination
         public async Task<IActionResult> Index()
         {
             var list = _repository.List<HotelModel>();
             return View(list);
         }
 
+
+        // TODO: Add DatePicker for Dates
+        // TODO: Add hotel stars with stars
+        // TODO: Redesign the view
+        // TODO: Add partial view
+        // TODO: Add pagination
         [HttpPost]
         public IActionResult Search(SearchViewModel searchViewModel)
         {
@@ -48,6 +55,8 @@ namespace BookingSite.Controllers
             return View(new SearchViewModel());
         }
 
+        // TODO: Add other parts to the booking form
+        // TODO: Add DatePicker to all the Dates
         public async Task<IActionResult> _BookingForm(int id)
         {
             var bookingFormViewModel = new BookingFormViewModel();
@@ -57,6 +66,9 @@ namespace BookingSite.Controllers
             return View(bookingFormViewModel);
         }
 
+        // TODO: Hide Google maps by Default
+        // TODO: Add picker on the map
+        // TODO: Redesign the view. Remove unnecessary parts (heading = "Hotels")
         public async Task<IActionResult> Hotel(int id)
         {
             var hotel = _repository.GetById<HotelModel>(id);

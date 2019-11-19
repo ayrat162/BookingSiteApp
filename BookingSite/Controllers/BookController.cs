@@ -17,6 +17,9 @@ namespace BookingSite.Controllers
             _repository = repository;
         }
 
+        // TODO: Add client-side validation https://exceptionnotfound.net/asp-net-mvc-demystified-unobtrusive-validation/
+        // TODO: Add checking if the user has all of the required info in Profile filled
+        // TODO: Add all types of checkings
         [HttpPost]
         public async Task<IActionResult> Room(BookingFormViewModel bookingViewModel)
         {

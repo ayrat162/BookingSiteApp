@@ -47,6 +47,9 @@ namespace BookingSite.Controllers
 
         #region working with users data
 
+        // TODO: Add pagination
+        // TODO: Add editing using Bootstrap Modal
+        // TODO: Add CRUD operations
         public async Task<IActionResult> Users()
         {
             var usersWithRoles = new List<UserViewModel>();
@@ -64,10 +67,9 @@ namespace BookingSite.Controllers
             return View(usersWithRoles);
         }
 
+        // TODO: Make partial view in modal
         public async Task<IActionResult> _User(int id)
         {
-            // TODO: To be implemented as here: https://stackoverflow.com/questions/11231862/using-bootstrap-modal-window-as-partialview
-            // here as well: https://exceptionnotfound.net/asp-net-mvc-demystified-unobtrusive-validation/
             var user = await _userManager.FindByIdAsync(id.ToString());
             var roles = await _userManager.GetRolesAsync(user);
             var userInfo = new UserViewModel
@@ -78,6 +80,7 @@ namespace BookingSite.Controllers
             return View(userInfo);
         }
         
+        // TODO: Make WebAPI and implement in users list
         public async Task<IActionResult> BecomeAdmin()
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
