@@ -40,7 +40,6 @@ namespace BookingSite.Controllers
             return View(new RegisterViewModel());
         }
 
-        //https://localhost:5001/Account/Confirm/33451e5c-b52c-4ce5-8597-cf1755ca4c20
         public async Task<IActionResult> Confirm(string id)
         {
             if (User.Identity.IsAuthenticated)
@@ -114,7 +113,6 @@ namespace BookingSite.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var user = await _userManager.GetUserAsync(HttpContext.User);
-
                 var accountViewModel = new AccountViewModel()
                 {
                     AppUser = user,

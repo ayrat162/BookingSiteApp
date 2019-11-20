@@ -75,7 +75,7 @@ namespace BookingSite.Controllers
             if(hotel!=null)
             {
                 var rooms = _repository.List<RoomModel>().Where(r => r.HotelModelId == id).ToList();
-                var hotelDetails = _repository.List<HotelDetailsModel>().Where(r => r.HotelModelId == id).FirstOrDefault();
+                var hotelDetails = _repository.List<HotelDetailsModel>().FirstOrDefault(r => r.HotelModelId == id);
                 var hotelWithRoomsViewModel = new HotelWithRoomsViewModel()
                 {
                     Hotel = hotel,
