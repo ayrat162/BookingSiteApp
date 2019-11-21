@@ -26,7 +26,6 @@ namespace BookingSite.Controllers
         }
 
 
-        // TODO: Add DatePicker for Dates
         // TODO: Add hotel stars with stars
         // TODO: Redesign the view
         // TODO: Add partial view
@@ -56,7 +55,6 @@ namespace BookingSite.Controllers
         }
 
         // TODO: Add other parts to the booking form
-        // TODO: Add DatePicker to all the Dates https://tempusdominus.github.io/bootstrap-4/Usage/
         public async Task<IActionResult> _BookingForm(int id)
         {
             var bookingFormViewModel = new BookingFormViewModel();

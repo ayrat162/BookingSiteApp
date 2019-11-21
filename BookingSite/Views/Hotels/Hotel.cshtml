@@ -3,6 +3,7 @@
     ViewData["Title"] = Model.Hotel.Name;
 }
 
+
 <div class="text-center">
     <h2 class="display-4">Hotels</h2>
 </div>
@@ -49,6 +50,7 @@
                     <br />
                     <p class="font-italic text-muted mb-0" id="hotelAddress">
                         Address: @Model.Hotel.City @Model.Hotel.Address
+                        <input type="button" class="btn btn-link" onclick="showHideMap(this)" id="showMapBtn" value="Show on the map" />
                         @* TODO: MapPartialView - https://stackoverflow.com/questions/40787998/proper-way-to-include-google-maps-in-net-core *@
                     </p>
                 </div>
@@ -57,35 +59,21 @@
                 </div>
                 <div class="col col-md-6 mx-auto">
                     <style>
-                        #map {
+                        #googleMaps {
                             margin: 0;
                             padding: 0;
                             height: 400px;
                             max-width: none;
                         }
 
-                            #map img {
+                            #googleMaps img {
                                 max-width: none !important;
                             }
                     </style>
-                    <div id="map"></div>
+                    <div id="googleMaps" hidden></div>
 
-                    <script>
-                        var map;
 
-                        function initMap() {
-                            var geocoder = new google.maps.Geocoder();
-                            geocoder.geocode({ address: "@Model.Hotel.Address" }, function (results, status) {
-                                if (status == google.maps.GeocoderStatus.OK) {
-                                    map = new google.maps.Map(document.getElementById('map'), {
-                                        center: results[0].geometry.location,
-                                        zoom: 17
-                                    });
-                                }
-                            });
-                        }
-                    </script>
-                    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEYdNt_gRDBDGGmD-h8e_KpC3McLTG5qE&callback=initMap" async defer></script>
+
                 </div>
                 <div class="row p-2" id="roomsList">
                     <div class="col col-12">
@@ -128,5 +116,36 @@
                 $('#bookingModal').modal('show');
             });
         });
+
     })
 </script>
+
+
+<script>
+    var map;
+    function initMap() {
+        var geocoder = new google.maps.Geocoder();
+        geocoder.geocode({ address: "@Model.Hotel.Address" }, function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                map = new google.maps.Map(document.getElementById('googleMaps'), {
+                    center: results[0].geometry.location,
+                    zoom: 17
+                });
+            }
+        });
+    }
+
+    function showHideMap(objButton) {
+        var googleMapsDiv = $('#googleMaps');
+        var showMapButton = $('#showMapBtn');
+        if (googleMapsDiv.attr('hidden')) {
+            googleMapsDiv.removeAttr('hidden');
+            objButton.value= 'Hide the map';
+        } else {
+            googleMapsDiv.attr('hidden', 'hidden');
+            objButton.value  = 'Show on the map';
+        }
+        
+    }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEYdNt_gRDBDGGmD-h8e_KpC3McLTG5qE&callback=initMap" async defer></script>
