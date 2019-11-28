@@ -1,43 +1,71 @@
 ﻿@using BookingShared.ViewModels
 @model List<UserViewModel>
 @{
-    ViewData["Title"] = "Users";
+    ViewData["Title"] = "Users Management";
 }
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <td>Id</td>
-            <td>Username</td>
-            <td>Email</td>
-            <td>First Name</td>
-            <td>Last Name</td>
-            <td>Date of Birth</td>
-            <td>Nationality</td>
-            <td>Passport</td>
-            <td>Roles</td>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var userView in Model)
-        {
-        <tr>
-            <td>@userView.user.Id</td>
-            <td>@userView.user.UserName</td>
-            <td>@userView.user.Email</td>
-            <td>@userView.user.FirstName</td>
-            <td>@userView.user.LastName</td>
-            <td>@userView.user.DateOfBirth</td>
-            <td>@userView.user.Nationality</td>
-            <td>@userView.user.PassportNumber</td>
-            <td>
-                @foreach (var role in userView.roles)
-                {
-                    @role 
-                }
-            </td>
-        </tr>
-        }
-    </tbody>
-</table>
+<div class="modal fade" id="userModal">
+    <div id="modalContainer" class="modal-dialog">
+        <div class="modal-content">
 
+        </div>
+    </div>
+</div>
+
+<div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <td>Id</td>
+                <td>Username</td>
+                <td>Email</td>
+                <td>First Name</td>
+                <td>Last Name</td>
+                <td>Date of Birth</td>
+                <td>Nationality</td>
+                <td>Passport</td>
+                <td>Roles</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var userView in Model)
+            {
+                <tr>
+                    <td>@userView.user.Id</td>
+                    <td>
+                        @Html.ActionLink(@userView.user.UserName,
+                                 "_User",
+                                 new {id = @userView.user.Id},
+                                 new {@class = "userButton"})
+                    </td>
+                    <td>@userView.user.Email</td>
+                    <td>@userView.user.FirstName</td>
+                    <td>@userView.user.LastName</td>
+                    <td>@userView.user.DateOfBirth</td>
+                    <td>@userView.user.Nationality</td>
+                    <td>@userView.user.PassportNumber</td>
+                    <td>
+                        @foreach (var role in userView.roles)
+                        {
+                            @role
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+    $(function () {
+        $.ajaxSetup({ cache: false });
+        $(".userButton").click(function (e) {
+            e.preventDefault();
+            $.get(this.href,
+                function (data) {
+                    $('#modalContainer').html(data);
+                    $('#userModal').modal('show');
+                });
+        });
+    });
+</script>

@@ -42,7 +42,7 @@ namespace BookingSite.Controllers
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
             var roles = await _userManager.GetRolesAsync(user);
-            return View(roles);
+            return View(roles.ToList());
         }
 
         #region working with users data
@@ -67,7 +67,7 @@ namespace BookingSite.Controllers
             return View(usersWithRoles);
         }
 
-        // TODO: Make partial view in modal
+        [HttpPost]
         public async Task<IActionResult> _User(int id)
         {
             var user = await _userManager.FindByIdAsync(id.ToString());
@@ -79,7 +79,14 @@ namespace BookingSite.Controllers
             };
             return View(userInfo);
         }
-        
+
+        [HttpGet]
+        public async Task<IActionResult> _User(UserViewModel userView)
+        {
+            //TODO: Implement
+            return View();
+        }
+
         // TODO: Make WebAPI and implement in users list
         public async Task<IActionResult> BecomeAdmin()
         {

@@ -25,7 +25,7 @@ namespace BookingSite.Controllers
             return View(list);
         }
 
-
+        // TODO: Fix Date Selection for Search
         // TODO: Add hotel stars with stars
         // TODO: Redesign the view
         // TODO: Add partial view
@@ -64,9 +64,7 @@ namespace BookingSite.Controllers
             return View(bookingFormViewModel);
         }
 
-        // TODO: Hide Google maps by Default
         // TODO: Add picker on the map
-        // TODO: Redesign the view. Remove unnecessary parts (heading = "Hotels")
         public async Task<IActionResult> Hotel(int id)
         {
             var hotel = _repository.GetById<HotelModel>(id);

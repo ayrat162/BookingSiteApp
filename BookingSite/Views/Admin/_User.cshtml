@@ -1,48 +1,41 @@
 ﻿@model BookingShared.ViewModels.UserViewModel
 
-<div>
-    <form method="post" asp-controller="Admin" asp-action="_User">
-        <div class="form-group col-md-3">
-            <label asp-for="user.Email" class="control-label"></label><br />
-            <input asp-for="user.Email" class="form-control" />
-            <span asp-validation-for="user.Email" class="text-danger"></span>
+@{
+    Layout = null;
+}
+
+<div class="modal-content">
+    <div class="text-center h2 my-5">@Model.user.UserName</div>
+    <form method="post" class="py-2 mx-auto col col-10" asp-controller="Admin" asp-action="_User">
+        <div class="form-group">
+            <input asp-for="user.Email" class="form-control" disabled="disabled" />
+            <span asp-validation-for="user.Email" class="text-danger small"></span>
         </div>
-        <div class="form-group col-md-3">
-            <label asp-for="user.UserName" class="control-label"></label><br />
-            <input asp-for="user.UserName" class="form-control" />
-            <span asp-validation-for="user.UserName" class="text-danger"></span>
-        </div>
-        <div class="form-group col-md-3">
-            <label asp-for="user.FirstName" class="control-label"></label><br />
+        <div class="form-group">
             <input asp-for="user.FirstName" class="form-control" />
-            <span asp-validation-for="user.FirstName" class="text-danger"></span>
+            <span asp-validation-for="user.FirstName" class="text-danger small"></span>
         </div>
-        <div class="form-group col-md-3">
-            <label asp-for="user.LastName" class="control-label"></label><br />
+        <div class="form-group">
             <input asp-for="user.LastName" class="form-control" />
-            <span asp-validation-for="user.LastName" class="text-danger"></span>
+            <span asp-validation-for="user.LastName" class="text-danger small"></span>
         </div>
-        <div class="form-group col-md-3">
-            <label asp-for="user.Nationality" class="control-label"></label><br />
+        <div class="form-group">
             <input asp-for="user.Nationality" class="form-control" />
-            <span asp-validation-for="user.Nationality" class="text-danger"></span>
+            <span asp-validation-for="user.Nationality" class="text-danger small"></span>
         </div>
-        <div class="form-group col-md-3">
-            <label asp-for="user.DateOfBirth" class="control-label"></label><br />
+        <div class="form-group">
             <input asp-for="user.DateOfBirth" class="form-control" />
-            <span asp-validation-for="user.DateOfBirth" class="text-danger"></span>
+            <span asp-validation-for="user.DateOfBirth" class="text-danger small"></span>
         </div>
-        <div class="form-group col-md-3">
-            <label asp-for="user.MobileNumber" class="control-label"></label><br />
+        <div class="form-group">
             <input asp-for="user.MobileNumber" class="form-control" />
-            <span asp-validation-for="user.MobileNumber" class="text-danger"></span>
+            <span asp-validation-for="user.MobileNumber" class="text-danger small"></span>
         </div>
-        <div class="form-group col-md-3">
-            <label asp-for="user.PassportNumber" class="control-label"></label><br />
+        <div class="form-group">
             <input asp-for="user.PassportNumber" class="form-control" />
-            <span asp-validation-for="user.PassportNumber" class="text-danger"></span>
+            <span asp-validation-for="user.PassportNumber" class="text-danger small"></span>
         </div>
-        <div class="form-check col-md-3">
+        <div class="form-check text-center">
             <input type="submit" value="Save" class="btn btn-info" />
         </div>
     </form>
