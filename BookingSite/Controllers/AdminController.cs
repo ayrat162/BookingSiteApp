@@ -18,10 +18,10 @@ namespace BookingSite.Controllers
     {
         #region constructor and private fields
         private readonly IRepository _repository;
-        private UserManager<AppUser> _userManager;
-        private SignInManager<AppUser> _signInMgr;
-        private RoleManager<AppRole> _rolesMgr;
-        private IWebHostEnvironment _appEnvironment;
+        private readonly UserManager<AppUser> _userManager;
+        private readonly SignInManager<AppUser> _signInMgr;
+        private readonly RoleManager<AppRole> _rolesMgr;
+        private readonly IWebHostEnvironment _appEnvironment;
 
         public AdminController(
             IRepository repository, 
@@ -67,7 +67,7 @@ namespace BookingSite.Controllers
             return View(usersWithRoles);
         }
 
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> _User(int id)
         {
             var user = await _userManager.FindByIdAsync(id.ToString());
@@ -80,11 +80,24 @@ namespace BookingSite.Controllers
             return View(userInfo);
         }
 
-        [HttpGet]
+        [HttpPost]
         public async Task<IActionResult> _User(UserViewModel userView)
         {
-            //TODO: Implement
-            return View();
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByIdAsync(userView.user.Id.ToString());
+                user.FirstName = userView.user.FirstName;
+                user.LastName = userView.user.LastName;
+                user.MobileNumber = userView.user.MobileNumber;
+                user.PassportNumber = userView.user.PassportNumber;
+                user.DateOfBirth = userView.user.DateOfBirth;
+                user.Nationality = userView.user.Nationality;
+                await _userManager.UpdateAsync(user);
+                TempData["Message"] = "User data was successfully updated";
+                return RedirectToAction("Users");
+            }
+            TempData["Message"] = "Error while updating user data";
+            return RedirectToAction("Users");
         }
 
         // TODO: Make WebAPI and implement in users list
@@ -133,9 +146,9 @@ namespace BookingSite.Controllers
         {
             if (uploadedFile != null)
             {
-                string path = "/files/" + uploadedFile.FileName;
+                var path = "/files/" + uploadedFile.FileName;
                 
-                using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                await using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
                 {
                     await uploadedFile.CopyToAsync(fileStream);
                 }
