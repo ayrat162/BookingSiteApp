@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BookingSite.Controllers
 {
-    [Authorize(Roles="admin")]
+    [Authorize(Roles = "admin")]
     public class AdminController : Controller
     {
         #region constructor and private fields
@@ -24,11 +24,11 @@ namespace BookingSite.Controllers
         private readonly IWebHostEnvironment _appEnvironment;
 
         public AdminController(
-            IRepository repository, 
-            UserManager<AppUser> userManager, 
-            SignInManager<AppUser> signInManager, 
+            IRepository repository,
+            UserManager<AppUser> userManager,
+            SignInManager<AppUser> signInManager,
             RoleManager<AppRole> rolesManager,
-            IWebHostEnvironment appEnvironment)  
+            IWebHostEnvironment appEnvironment)
         {
             _repository = repository;
             _userManager = userManager;
@@ -47,9 +47,6 @@ namespace BookingSite.Controllers
 
         #region working with users data
 
-        // TODO: Add pagination
-        // TODO: Add editing using Bootstrap Modal
-        // TODO: Add CRUD operations
         public async Task<IActionResult> Users()
         {
             var usersWithRoles = new List<UserViewModel>();
@@ -94,13 +91,14 @@ namespace BookingSite.Controllers
                 user.Nationality = userView.user.Nationality;
                 await _userManager.UpdateAsync(user);
                 TempData["Message"] = "User data was successfully updated";
-                return RedirectToAction("Users");
             }
-            TempData["Message"] = "Error while updating user data";
+            else
+            {
+                TempData["Message"] = "Error while updating user data";
+            }
             return RedirectToAction("Users");
         }
 
-        // TODO: Make WebAPI and implement in users list
         public async Task<IActionResult> BecomeAdmin()
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
@@ -147,14 +145,14 @@ namespace BookingSite.Controllers
             if (uploadedFile != null)
             {
                 var path = "/files/" + uploadedFile.FileName;
-                
+
                 await using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
                 {
                     await uploadedFile.CopyToAsync(fileStream);
                 }
                 var file = new FileModel { Name = uploadedFile.FileName, Path = path };
                 _repository.Add(file);
-                
+
             }
 
             return RedirectToAction("UploadFile");
@@ -167,6 +165,6 @@ namespace BookingSite.Controllers
             return View(files);
         }
 
-            #endregion
-        }
+        #endregion
     }
+}
