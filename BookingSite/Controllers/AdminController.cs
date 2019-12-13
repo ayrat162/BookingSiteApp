@@ -110,6 +110,10 @@ namespace BookingSite.Controllers
 
         #region working with hotels and bookings
 
+        // TODO: Add possibility to add new hotels
+        // TODO: Add possibility to edit hotels info
+        // TODO: Add possibility to add new rooms to a hotel
+        // TODO: Add possibility to edit rooms
         public IActionResult Hotels()
         {
             var viewModel = new AdminHotelsViewModel

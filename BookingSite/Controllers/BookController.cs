@@ -20,6 +20,7 @@ namespace BookingSite.Controllers
         }
 
         // TODO: Add client-side validation https://exceptionnotfound.net/asp-net-mvc-demystified-unobtrusive-validation/
+        // TODO: Add confirmation by email
         [HttpPost]
         public async Task<IActionResult> Room(BookingFormViewModel bookingViewModel)
         {

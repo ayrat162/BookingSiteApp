@@ -1,5 +1,7 @@
 ﻿namespace BookingShared.Models
 {
+    // TODO: Add rating to the hotel [may be added in BLL]
+    // TODO: Add included services list
     public class HotelModel : BaseEntity
     {
         public string Name { get; set; }

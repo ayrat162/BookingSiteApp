@@ -108,6 +108,10 @@ namespace BookingSite.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+
+        // TODO: Add list of active bookings
+        // TODO: Add possibility of cancelling booking not less than 2 week before booking
+        // TODO: Add possibility to leave comments on old bookings, give rating
         public async Task<IActionResult> Index()
         {
             if (User.Identity.IsAuthenticated)

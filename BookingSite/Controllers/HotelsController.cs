@@ -49,6 +49,11 @@ namespace BookingSite.Controllers
             }
         }
 
+        // TODO: Add filtering by stars
+        // TODO: Add filtering by price
+        // TODO: Add filtering by rating
+        // TODO: Add sorting by price
+        // TODO: Add sorting by stars
         [HttpGet]
         public async Task<IActionResult> Search() {
             return View(new SearchViewModel());
@@ -64,7 +69,10 @@ namespace BookingSite.Controllers
             return View(bookingFormViewModel);
         }
 
-        // TODO: Add picker on the map
+        // TODO: Add picker to the map
+        // TODO: Add rating of the hotel
+        // TODO: Add multiple photos of hotel
+        // TODO: Add carousel of photos of hotel
         public async Task<IActionResult> Hotel(int id)
         {
             var hotel = _repository.GetById<HotelModel>(id);
